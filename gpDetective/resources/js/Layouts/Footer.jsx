@@ -1,0 +1,25 @@
+import ApplicationLogo from '@/Components/ApplicationLogoSecond';
+import '../../css/footer.css'
+
+export default function footer(){
+    return(
+        <>
+        <section className="marcoFooter">
+            <div className="imagenFooter">
+                <ApplicationLogo></ApplicationLogo>
+            </div>
+            <div className="lineaDivisoria">
+                
+            </div>
+            <div className="contactos">
+                <h5>Contactos</h5>
+                <ul>
+                    <li>Gimper@gmail.com</li>
+                    <li>123456789</li>
+                    <li>Calle manolo 15</li>
+                </ul>
+            </div>
+        </section>
+        </>
+    );
+}

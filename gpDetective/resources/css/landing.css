@@ -1,0 +1,177 @@
+.fondoImagen{
+    background-image: url('/resources/images/laIsla.webp');
+    background-size: cover;
+    height: 600px;
+}
+.entradaImagen {
+    background-color: rgba(0, 0, 0, 0.6);
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.entradaImagen h1{
+    font-size: 40px;
+    opacity: 0;
+    color: white;
+    transform: translateY(-20px);
+    animation: paAbajo 1s ease forwards;
+}
+.entradaImagen p{
+    color: white;
+}
+
+@keyframes paAbajo {
+    to{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+
+/* Sección informativa */
+.informacion {
+    padding: 80px 20px;
+}
+
+.informacion h1 {
+    text-align: center;
+    font-size: 3rem;
+    color: #2C3E50;
+    margin-bottom: 60px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+/* Contenedor de cajas */
+.cajas-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Caja individual con efecto flip */
+.caja-info {
+    height: 300px;
+    perspective: 1000px;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.6s ease-out;
+}
+
+/* Cuando el padre tiene la clase 'aparecer' */
+.informacion.aparecer .caja-info {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* 2. DIRECCIONES INDIVIDUALES (Punto de partida) */
+.caja-info:nth-child(1) { 
+  transform: translateX(-100px); /* Viene de la Izquierda */
+  transition-delay: 0.1s; 
+}
+
+.caja-info:nth-child(2) { 
+  transform: translateX(100px);  /* Viene de la Derecha */
+  transition-delay: 0.3s; 
+}
+
+.caja-info:nth-child(3) { 
+  transform: translateX(-100px); /* Viene de Arriba */
+  transition-delay: 0.5s; 
+}
+
+.caja-info:nth-child(4) { 
+  transform: translateX(100px);  /* Viene de Abajo */
+  transition-delay: 0.7s; 
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.caja-info:hover .flip-card-inner {
+    transform: rotateX(180deg);
+}
+
+/* Cara frontal y trasera */
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Cara frontal - Título */
+.flip-card-front {
+    background-color:#FFC830;
+
+}
+
+.flip-card-front h3 {
+    font-size: 1.8rem;
+    color: black;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.3;
+}
+
+/* Cara trasera - Texto */
+.flip-card-back {
+    background: linear-gradient(135deg, #000000 0%, #161c22 100%);
+    transform: rotateX(180deg);
+}
+
+.flip-card-back p {
+    color: #ffffff;
+    font-size: 1.1rem;
+    text-align: center;
+    line-height: 1.7;
+    font-weight: 400;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .informacion {
+        padding: 60px 15px;
+    }
+    
+    .informacion h1 {
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+    }
+    
+    .cajas-info {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .caja-info {
+        height: 250px;
+    }
+    
+    .flip-card-front h3 {
+        font-size: 1.5rem;
+    }
+    
+    .flip-card-back p {
+        font-size: 1rem;
+    }
+}
+
+
