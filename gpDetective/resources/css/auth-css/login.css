@@ -1,0 +1,8 @@
+.botonesEjecute{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.botonAceptar{
+    margin-bottom: 15px;
+}

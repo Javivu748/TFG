@@ -3,8 +3,10 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
+import ApplicationLogo from '@/Components/ApplicationLogo';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
+import '../../../css/auth-css/login.css'
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -33,6 +35,9 @@ export default function Login({ status, canResetPassword }) {
 
             <form onSubmit={submit}>
                 <div>
+<></>
+                    <ApplicationLogo></ApplicationLogo>
+
                     <InputLabel htmlFor="email" value="Email" />
 
                     <TextInput
@@ -80,7 +85,13 @@ export default function Login({ status, canResetPassword }) {
                     </label>
                 </div>
 
-                <div className="mt-4 flex items-center justify-end">
+                <div className="botonesEjecute">
+
+                    <div className="botonAceptar">
+                    <PrimaryButton nombre="Log in" href="{{route}}" disabled={processing}>
+                    </PrimaryButton>
+                    </div>
+
                     {canResetPassword && (
                         <Link
                             href={route('password.request')}
@@ -90,9 +101,7 @@ export default function Login({ status, canResetPassword }) {
                         </Link>
                     )}
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Log in
-                    </PrimaryButton>
+
                 </div>
             </form>
         </GuestLayout>

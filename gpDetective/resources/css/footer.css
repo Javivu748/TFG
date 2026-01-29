@@ -11,8 +11,8 @@
     color: white;
     display: flex;
     flex-direction: column ;
-    margin: 30px;
-    padding: 20px;
+    margin: 30px 30px 30px 70px;
+    padding: 30px;
     border: 1px solid white;
 }
 
