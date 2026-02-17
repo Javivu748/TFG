@@ -85,8 +85,9 @@ export default function Login({ status, canResetPassword }) {
                     </div>
 
                     <div className="editBoton">
-                    <PrimaryButton nombre="Log in" href="{processing ? 'Logging in...' : 'Log in'}">
-                    </PrimaryButton>
+                    <button type="submit" className="boton-primario ms-4" disabled={processing}>
+                        Login
+                    </button>
                     </div>
 
                     {canResetPassword && (

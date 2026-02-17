@@ -1,13 +1,14 @@
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: '',
+        nombre: '',
+        apellido: '',
+        telefono: '',
         email: '',
         password: '',
         password_confirmation: '',
@@ -26,21 +27,56 @@ export default function Register() {
             <Head title="Register" />
 
             <form onSubmit={submit}>
+                
                 <div>
-                    <InputLabel htmlFor="name" value="Name" />
+                    <InputLabel htmlFor="Nombre" value="Nombre" />
 
                     <TextInput
-                        id="name"
-                        name="name"
-                        value={data.name}
+                        id="nombre"
+                        name="nombre"
+                        value={data.nombre}
                         className="mt-1 block w-full"
-                        autoComplete="name"
+                        autoComplete="nombre"
                         isFocused={true}
-                        onChange={(e) => setData('name', e.target.value)}
+                        onChange={(e) => setData('nombre', e.target.value)}
                         required
                     />
 
-                    <InputError message={errors.name} className="mt-2" />
+                    <InputError message={errors.nombre} className="mt-2" />
+                </div>
+
+                <div>
+                    <InputLabel htmlFor="apellido" value="Apellido" />
+
+                    <TextInput
+                        id="apellido"
+                        name="apellido"
+                        value={data.apellido}
+                        className="mt-1 block w-full"
+                        autoComplete="apellido"
+                        isFocused={true}
+                        onChange={(e) => setData('apellido', e.target.value)}
+                        required
+                    />
+
+                    <InputError message={errors.apellido} className="mt-2" />
+                </div>
+
+                <div>
+                    <InputLabel htmlFor="telefono" value="Telefono" />
+
+                    <TextInput
+                        id="telefono"
+                        name="telefono"
+                        value={data.telefono}
+                        className="mt-1 block w-full"
+                        autoComplete="telefono"
+                        isFocused={true}
+                        onChange={(e) => setData('telefono', e.target.value)}
+                        required
+                    />
+
+                    <InputError message={errors.telefono} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
@@ -110,9 +146,9 @@ export default function Register() {
                         Already registered?
                     </Link>
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
+                    <button type="submit" className="boton-primario ms-4" disabled={processing}>
                         Register
-                    </PrimaryButton>
+                    </button>
                 </div>
             </form>
         </GuestLayout>
