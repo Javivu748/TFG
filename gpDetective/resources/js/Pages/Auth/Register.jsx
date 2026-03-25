@@ -1,6 +1,7 @@
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
+import ApplicationLogo from '@/Components/ApplicationLogo';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 
@@ -27,8 +28,13 @@ export default function Register() {
             <Head title="Register" />
 
             <form onSubmit={submit}>
-                
+
                 <div>
+
+                    <Link href="/">
+                        <ApplicationLogo className="h-20 w-20 fill-current text-gray-500" />
+                    </Link>
+
                     <InputLabel htmlFor="Nombre" value="Nombre" />
 
                     <TextInput
@@ -43,23 +49,6 @@ export default function Register() {
                     />
 
                     <InputError message={errors.nombre} className="mt-2" />
-                </div>
-
-                <div>
-                    <InputLabel htmlFor="apellido" value="Apellido" />
-
-                    <TextInput
-                        id="apellido"
-                        name="apellido"
-                        value={data.apellido}
-                        className="mt-1 block w-full"
-                        autoComplete="apellido"
-                        isFocused={true}
-                        onChange={(e) => setData('apellido', e.target.value)}
-                        required
-                    />
-
-                    <InputError message={errors.apellido} className="mt-2" />
                 </div>
 
                 <div>
@@ -151,6 +140,6 @@ export default function Register() {
                     </button>
                 </div>
             </form>
-        </GuestLayout>
+        </GuestLayout >
     );
 }

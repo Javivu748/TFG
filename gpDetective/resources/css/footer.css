@@ -5,7 +5,7 @@
 
 .marcoFooter{
     display: flex;
-    background-image: url('/resources/images/fondo-negro.webp');
+    background-image: url('/images/fondo-negro.webp');
 }
 .contactos{
     color: white;
@@ -13,7 +13,6 @@
     flex-direction: column ;
     margin: 30px 30px 30px 70px;
     padding: 30px;
-    border: 1px solid white;
 }
 
 .contactos h5{
@@ -30,4 +29,20 @@ ul{
     display: flex;
     align-items: center;
     margin: 15px;
+}
+
+.rrss{
+    color: white;
+    display: flex;
+    flex-direction: column ;
+    margin: 30px 30px 30px 70px;
+    padding: 30px;
+}
+
+.rrss li{
+    padding:5px ;
+}
+
+.contactos li{
+    padding:5px ;
 }

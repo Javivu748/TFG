@@ -19,6 +19,14 @@ export default function footer(){
                     <li>Calle manolo 15</li>
                 </ul>
             </div>
+            <div className="rrss">
+                <h5>Redes Sociales</h5>
+                <ul>
+                    <li><a href="">Facebook</a></li>
+                    <li><a href="">Instagram</a></li>
+                    <li><a href="">Linkedin</a></li>
+                </ul>
+            </div>
         </section>
         </>
     );

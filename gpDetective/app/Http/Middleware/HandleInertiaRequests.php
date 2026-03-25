@@ -34,6 +34,9 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            'flash' => [
+                'error_google' => $request->session()->get('error_google'),
+            ],
         ];
     }
 }

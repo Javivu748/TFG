@@ -1,11 +1,17 @@
 .fondoImagen{
-    background-image: url('/resources/images/laIsla.webp');
+    background-image: url('/images/cadiz.webp');
     background-size: cover;
     background-attachment: fixed;
     height: 600px;
 }
+.TextoBienvenida{
+    font-size: 40px;
+    opacity: 0;
+    color: white;
+    animation: paAbajo 1s ease forwards;
+}
 .entradaImagen {
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.4);
     height: 600px;
     display: flex;
     flex-direction: column;

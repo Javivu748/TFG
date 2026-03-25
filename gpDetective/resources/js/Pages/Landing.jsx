@@ -1,6 +1,7 @@
 import Layout from '../Layouts/PrLayout.jsx'
 import Footer from '../Layouts/Footer.jsx'
 import '../../css/landing.css'
+import BlurText from "../Components/BlurText.jsx";
 import { useEffect, useRef, useState } from 'react';
 
 export default function Landing() {
@@ -27,7 +28,13 @@ export default function Landing() {
 
             <section className="fondoImagen">
                 <div className="entradaImagen">
-                    <h1>Detective a tu disposición</h1>
+                    <BlurText
+                        text="Detective Privado en Cádiz"
+                        delay={200}
+                        animateBy="words"
+                        direction="top"
+                        className="TextoBienvenida"
+                    />
                     <p>Detective privado en la provincia de cadiz para investigaciones de cualquier tipo</p>
                 </div>
             </section>
@@ -80,7 +87,7 @@ export default function Landing() {
                     </div>
                 </div>
             </section>
-            
+
             <Footer></Footer>
 
         </>

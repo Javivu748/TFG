@@ -1,6 +1,6 @@
-
 import PrimaryButton from '@/Components/PrimaryButton';
 import ApplicationLogo from '@/Components/ApplicationLogo';
+import GoogleButton from '@/Components/LoginButton';
 import { Head, Link, useForm } from '@inertiajs/react';
 import '../../../css/auth-css/login.css'
 
@@ -24,7 +24,7 @@ export default function Login({ status, canResetPassword }) {
             <div className="login-card">
 
                 <ApplicationLogo></ApplicationLogo>
-                
+
                 {status && (
                     <div className="status-message">
                         {status}
@@ -85,10 +85,21 @@ export default function Login({ status, canResetPassword }) {
                     </div>
 
                     <div className="editBoton">
-                    <button type="submit" className="boton-primario ms-4" disabled={processing}>
-                        Login
-                    </button>
+                        <button type="submit" className="boton-primario ms-4" disabled={processing}>
+                            Login
+                        </button>
                     </div>
+
+                    <div className="logGoogle">
+                        <GoogleButton></GoogleButton>
+                        {errors.google && (
+                            <div className="error-message">{errors.google}</div>
+                        )}
+                    </div>
+
+                    <Link href={route('register')} className="register-link">
+                        Registrate
+                    </Link>
 
                     {canResetPassword && (
                         <div className="forgot-password">
@@ -97,7 +108,10 @@ export default function Login({ status, canResetPassword }) {
                             </Link>
                         </div>
                     )}
+
+
                 </form>
+
             </div>
         </div>
     );
