@@ -97,14 +97,16 @@ export default function Login({ status, canResetPassword }) {
                         )}
                     </div>
 
-                    <Link href={route('register')} className="register-link">
-                        Registrate
-                    </Link>
+                    <div className='register-link'>
+                        <Link href={route('register')}>
+                            Registrate
+                        </Link>
+                    </div>
 
                     {canResetPassword && (
                         <div className="forgot-password">
                             <Link href={route('password.request')}>
-                                Forgot your password?
+                                Olvidaste tu contraseña?
                             </Link>
                         </div>
                     )}

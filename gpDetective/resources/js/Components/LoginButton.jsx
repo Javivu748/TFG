@@ -11,8 +11,8 @@ export default function GoogleButton() {
                 <img
                     src="/images/google.webp"
                     alt="Google"
-                    width={40}
-                    height={40}
+                    width={30}
+                    height={30}
                 />
                 Continuar con Google
             </button>

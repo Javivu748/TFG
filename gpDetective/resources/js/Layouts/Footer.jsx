@@ -14,9 +14,9 @@ export default function footer(){
             <div className="contactos">
                 <h5>Contactos</h5>
                 <ul>
-                    <li>Gimper@gmail.com</li>
-                    <li>123456789</li>
-                    <li>Calle manolo 15</li>
+                    <li>Ginper@gmail.com</li>
+                    <li>630855870</li>
+                    <li>C. Arapiles, 11, 11100 San Fernando, Cádiz</li>
                 </ul>
             </div>
             <div className="rrss">

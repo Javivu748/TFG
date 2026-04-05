@@ -1,0 +1,59 @@
+.dashboard-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 32px 20px;
+}
+
+.dashboard-container h1 {
+    font-size: 2rem;
+    color: #1f2937;
+    margin-bottom: 16px;
+}
+
+.dashboard-casos h2 {
+    font-size: 1.5rem;
+    color: #374151;
+    margin-bottom: 14px;
+}
+
+.dashboard-casos ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 14px;
+}
+
+.dashboard-casos li {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 12px 14px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.05);
+}
+
+.dashboard-casos li strong {
+    display: block;
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+}
+
+.dashboard-casos li p {
+    font-size: 0.95rem;
+    color: #4b5563;
+    margin: 0 0 8px;
+}
+
+.dashboard-casos .estado {
+    font-size: 0.85rem;
+    color: #064e3b;
+    background-color: #dcfce7;
+    border: 1px solid #bbf7d0;
+    border-radius: 999px;
+    padding: 3px 10px;
+}
+
+.dashboard-casos p {
+    color: #6b7280;
+    font-size: 1rem;
+}

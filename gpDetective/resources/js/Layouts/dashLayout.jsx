@@ -1,8 +1,8 @@
-import '../../css/prLayout.css';
+import '../../css/dashLayout.css';
 import { useState, useEffect } from 'react';
 import { usePage, router } from '@inertiajs/react';
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import BotonPrimario from '@/Components/PrimaryButton';
+import ApplicationLogo from '@/Components/ApplicationLogoSecond';
+import BotonSecundario from '@/Components/SecondaryButton';
 import BotonSalir from '@/Components/ExitButton';
 
 export default function Layout() {
@@ -47,13 +47,13 @@ export default function Layout() {
 
                 <div className="botones">
                     <div className={`boton-animado ${botonesVisibles[0] ? 'visible' : ''}`}>
-                        <BotonPrimario nombre="Inicio" href="/"></BotonPrimario>
+                        <BotonSecundario nombre="Inicio" href="/"></BotonSecundario>
                     </div>
                     <div className={`boton-animado ${botonesVisibles[1] ? 'visible' : ''}`}>
-                        <BotonPrimario nombre="Sobre" href="/sobre"></BotonPrimario>
+                        <BotonSecundario nombre="Crear Caso" href="/crear-caso"></BotonSecundario>
                     </div>
                     <div className={`boton-animado ${botonesVisibles[2] ? 'visible' : ''}`}>
-                        <BotonPrimario nombre="Perfil" href="/"></BotonPrimario>
+                        <BotonSecundario nombre="Perfil" href="/"></BotonSecundario>
                     </div>
                     <div className={`boton-animado ${botonesVisibles[3] ? 'visible' : ''}`}>
                         <BotonSalir nombre="Cerrar Sesion" pulsar={handleLogout}></BotonSalir>

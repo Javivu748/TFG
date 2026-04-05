@@ -1,9 +1,6 @@
-// resources/js/Pages/Auth/CompleteProfile.jsx
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
-import GuestLayout from '@/Layouts/GuestLayout';
-import { Head, useForm } from '@inertiajs/react';
+import ApplicationLogo from '@/Components/ApplicationLogo';
+import { Head, Link, useForm } from '@inertiajs/react';
+import '../../../css/auth-css/posLogin.css';
 
 export default function CompleteProfile() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -21,67 +18,82 @@ export default function CompleteProfile() {
     };
 
     return (
-        <GuestLayout>
+        <div className="poslogin-container">
             <Head title="Completa tu perfil" />
 
-            <div className="mb-4 text-sm text-gray-600">
-                Para continuar, completa los datos de tu perfil.
+            <div className="poslogin-card">
+
+                <div className="poslogin-logo">
+                    <Link href="/">
+                        <ApplicationLogo className="h-20 w-20 fill-current text-gray-500" />
+                    </Link>
+                </div>
+
+                <p className="poslogin-description">
+                    Para continuar, completa los datos de tu perfil.
+                </p>
+
+                <form onSubmit={submit} className="poslogin-form">
+
+                    <div className="form-group">
+                        <label htmlFor="telefono" className="form-label">Teléfono</label>
+                        <input
+                            id="telefono"
+                            name="telefono"
+                            type="text"
+                            value={data.telefono}
+                            className="form-input"
+                            autoComplete="tel"
+                            onChange={(e) => setData('telefono', e.target.value)}
+                            required
+                        />
+                        {errors.telefono && (
+                            <span className="error-message">{errors.telefono}</span>
+                        )}
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="password" className="form-label">Contraseña</label>
+                        <input
+                            id="password"
+                            type="password"
+                            name="password"
+                            value={data.password}
+                            className="form-input"
+                            autoComplete="new-password"
+                            onChange={(e) => setData('password', e.target.value)}
+                        />
+                        {errors.password && (
+                            <span className="error-message">{errors.password}</span>
+                        )}
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="password_confirmation" className="form-label">
+                            Confirmar Contraseña
+                        </label>
+                        <input
+                            id="password_confirmation"
+                            type="password"
+                            name="password_confirmation"
+                            value={data.password_confirmation}
+                            className="form-input"
+                            autoComplete="new-password"
+                            onChange={(e) => setData('password_confirmation', e.target.value)}
+                        />
+                        {errors.password_confirmation && (
+                            <span className="error-message">{errors.password_confirmation}</span>
+                        )}
+                    </div>
+
+                    <div className="poslogin-actions">
+                        <button type="submit" className="boton-primario" disabled={processing}>
+                            Guardar y continuar
+                        </button>
+                    </div>
+
+                </form>
             </div>
-
-            <form onSubmit={submit}>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="telefono" value="Teléfono" />
-                    <TextInput
-                        id="telefono"
-                        name="telefono"
-                        value={data.telefono}
-                        className="mt-1 block w-full"
-                        autoComplete="telefono"
-                        onChange={(e) => setData('telefono', e.target.value)}
-                        required
-                    />
-                    <InputError message={errors.telefono} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Contraseña" />
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) => setData('password', e.target.value)}
-                    />
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="password_confirmation" value="Confirmar Contraseña" />
-                    <TextInput
-                        id="password_confirmation"
-                        type="password"
-                        name="password_confirmation"
-                        value={data.password_confirmation}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) => setData('password_confirmation', e.target.value)}
-                    />
-                    <InputError message={errors.password_confirmation} className="mt-2" />
-                </div>
-
-                <div className="mt-4 flex items-center justify-end">
-                    <button
-                        type="submit"
-                        className="boton-primario ms-4"
-                        disabled={processing}
-                    >
-                        Guardar y continuar
-                    </button>
-                </div>
-            </form>
-        </GuestLayout>
+        </div>
     );
 }

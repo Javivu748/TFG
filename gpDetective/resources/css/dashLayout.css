@@ -1,0 +1,51 @@
+body {
+    font-family: system-ui;
+    background-color: white;
+}
+
+.cabecero {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    background-color: black;
+}
+
+.imagen {
+    width: 160px;
+    cursor: pointer;            
+    transition: transform 0.3s ease;
+}
+
+.botones {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-inline-start: auto;
+    margin-right: 200px;
+}
+
+.boton-animado {
+    opacity: 0;
+    transform: translateY(-30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.boton-animado.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#logo {
+    opacity: 0;
+    transform: translateX(20px);
+    animation: aparecerDerecha 1s ease forwards;
+}
+
+@keyframes aparecerDerecha {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

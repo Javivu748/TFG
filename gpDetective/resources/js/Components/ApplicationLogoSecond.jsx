@@ -2,6 +2,6 @@ import '../../css/logoGP.css'
 
 export default function ApplicationLogo(props) {
     return (
-        <img src="/images/GINPERFINAL.jpg" alt="LogoGinper" className='logoGP'/>
+        <img src="/images/GINPERFINALedit.jpg" alt="LogoGinper" className='logoGP'/>
     );
 }
