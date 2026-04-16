@@ -9,7 +9,7 @@ export default function Sobre() {
         <>
             <Header></Header>
             <section className='informacion'>
-                <h1>Sobre GimPer</h1>
+                <h1>Sobre GinPer</h1>
                 <div className="cajaContenido">
                     <div className="cuadroImagen">
                         <ApplicationLogo></ApplicationLogo>
@@ -17,7 +17,7 @@ export default function Sobre() {
                     <div className="cuadroTexto">
                         <h3>Francisco Javier Giner Perez</h3>
                         <div className="informacionDetallada">
-                            <p>Soy Francisco Javier , conocido como gimper soy de San Fernando pero naci en el puerto de santa maria
+                            <p>Soy Francisco Javier , conocido como ginper soy de San Fernando pero naci en el puerto de santa maria
                                 soy diplomado en detective....</p>
                         </div>
                     </div>

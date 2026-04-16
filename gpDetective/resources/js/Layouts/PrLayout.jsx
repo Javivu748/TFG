@@ -51,11 +51,15 @@ export default function Layout() {
                     <div className={`boton-animado ${botonesVisibles[2] ? 'visible' : ''}`}>
                         <BotonPrimario nombre="Preguntas" href="/"></BotonPrimario>
                     </div> 
+                    
+                </div>
+                <div className="sesiones">
                     <div className={`boton-animado ${botonesVisibles[3] ? 'visible' : ''}`}>
                         {user ? (
                             <BotonPrimario nombre="Dashboard" href={route('dashboard')} />
-                        ) : (
+                        ) : (<>
                             <BotonPrimario nombre="Inicio Sesión" href={route('login')} />
+                            </>
                         )}
                     </div>
                 </div>

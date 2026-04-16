@@ -14,7 +14,7 @@ class CasoController extends Controller
     public function index()
     {
         return Inertia::render('Dashboard', [
-            'casos' => Auth()->user()->casos()->get()
+            'casos' => Auth()->user()->casos()->orderBy('created_at','desc')->get()
         ]);
     }
 

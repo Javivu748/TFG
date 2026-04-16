@@ -32,6 +32,15 @@
     box-shadow: 0 4px 10px rgba(15, 23, 42, 0.05);
 }
 
+.tituloCaso {
+    text-align: center;
+}
+.tituloCaso h3 {
+    font-size: 22px;
+    color: black;
+    font-weight: bold;
+}
+
 .dashboard-casos li strong {
     display: block;
     font-size: 1.05rem;

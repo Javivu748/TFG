@@ -19,7 +19,9 @@ export default function Dashboard() {
                         <ul>
                             {casos.map((caso) => (
                                 <li key={caso.id}>
-                                    <strong>{caso.titulo ?? 'Caso sin título'}</strong>
+                                    <div className="tituloCaso">
+                                        <h3>{caso.titulo ?? 'Caso sin título'}</h3>
+                                    </div>
                                     <p>{caso.descripcion ?? 'Sin descripción'}</p>
                                     {caso.estado && <span className="estado">Estado: {caso.estado}</span>}
                                 </li>

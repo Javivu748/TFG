@@ -3,6 +3,7 @@
     background-size: cover;
     background-attachment: fixed;
     height: 600px;
+    width: 100%;
 }
 .TextoBienvenida{
     font-size: 40px;
@@ -17,6 +18,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 .entradaImagen h1{
     font-size: 40px;
@@ -153,31 +155,85 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+    /* Hero */
+    .fondoImagen {
+        height: 400px;
+        background-attachment: scroll; /* fixed no funciona bien en móvil */
+    }
+
+    .entradaImagen {
+        height: 400px;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .entradaImagen h1,
+    .TextoBienvenida {
+        font-size: 3rem;
+    }
+
+    .entradaImagen p {
+        font-size: 0.95rem;
+        padding: 0 10px;
+    }
+
+    /* Sección informativa */
     .informacion {
-        padding: 60px 15px;
+        padding: 50px 15px;
     }
-    
+
     .informacion h1 {
-        font-size: 2.5rem;
-        margin-bottom: 40px;
+        font-size: 2rem;
+        margin-bottom: 30px;
     }
-    
+
     .cajas-info {
         grid-template-columns: 1fr;
         gap: 20px;
+        max-width: 100%;
     }
-    
+
     .caja-info {
-        height: 250px;
+        height: 220px;
     }
-    
+
+    /* En móvil desactiva el flip y muestra la cara trasera directamente */
+    .caja-info:hover .flip-card-inner {
+        transform: none;
+    }
+
     .flip-card-front h3 {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
     }
-    
+
     .flip-card-back p {
-        font-size: 1rem;
+        font-size: 0.95rem;
+    }
+
+    /* Anulamos animaciones de entrada laterales en móvil para evitar scroll horizontal */
+    .caja-info:nth-child(1),
+    .caja-info:nth-child(2),
+    .caja-info:nth-child(3),
+    .caja-info:nth-child(4) {
+        transform: translateY(30px);
+    }
+
+    .informacion.aparecer .caja-info {
+        transform: translateY(0);
     }
 }
 
+@media (max-width: 310px) {
+    .entradaImagen h1,
+    .TextoBienvenida {
+        font-size: 3rem;
+    }
 
+    .informacion h1 {
+        font-size: 1.6rem;
+    }
+
+    .caja-info {
+        height: 200px;
+    }
+}

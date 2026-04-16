@@ -49,3 +49,24 @@ body {
         transform: translateX(0);
     }
 }
+
+@media screen and (max-width: 768px) {
+    .cabecero {
+        flex-wrap: wrap;
+        padding: 8px 16px;
+    }
+
+    .imagen {
+        margin-inline: auto;
+    }
+
+    .botones {
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-right: 0;
+        margin-inline-start: 0;
+        width: 100%;
+        gap: 6px;
+        padding: 8px 0;
+    }
+}

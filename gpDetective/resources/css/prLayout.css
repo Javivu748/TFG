@@ -1,3 +1,15 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+}
+
 body {
     font-family: system-ui;
     background-color: white;
@@ -7,9 +19,20 @@ body {
     position: sticky;
     top: 0;
     z-index: 100;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    background-color: white;
+    width: 100%;       
+    padding: 8px 16px; 
+}
+
+.sesiones {
     display: flex;
     align-items: center;
-    background-color: white;
+    margin: auto;
+}
+.sesiones a{
+    margin-inline: 5px;
 }
 
 .imagen {
@@ -22,8 +45,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-inline-start: auto;
-    margin-right: 200px;
+    margin-inline: auto;
 }
 
 .boton-animado {
@@ -47,5 +69,36 @@ body {
     to {
         opacity: 1;
         transform: translateX(0);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .cabecero {
+        grid-template-columns: 1fr;
+        padding: 8px 16px;
+    }
+
+    .imagen {
+        margin-inline: auto;
+    }
+
+    .botones {
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-right: 0;
+        margin-inline-start: 0;
+        width: 100%;
+        gap: 6px;
+        padding: 8px 0;
+    }
+
+    .sesiones{
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-right: 0;
+        margin-inline-start: 0;
+        width: 100%;
+        gap: 6px;
+        padding: 8px 0;
     }
 }
