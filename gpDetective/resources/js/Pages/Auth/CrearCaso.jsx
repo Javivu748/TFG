@@ -13,7 +13,13 @@ export default function CrearCaso() {
     const submit = (e) => {
         e.preventDefault();
         post(route('crear.caso.store'), {
-            onSuccess: () => reset('titulo', 'descripcion'),
+            onSuccess: () => {
+                reset('titulo', 'descripcion');
+                sessionStorage.setItem('alerta', JSON.stringify({
+                    tipo: 'Exito',
+                    mensaje: 'Caso creado correctamente.'
+                }));
+            },
         });
     };
 
@@ -56,7 +62,7 @@ export default function CrearCaso() {
                         {errors.descripcion && <span className="error-message">{errors.descripcion}</span>}
                     </div>
 
-                
+
 
                     <div className="editBoton">
                         <button type="submit" className="submit-button" disabled={processing}>
@@ -64,9 +70,9 @@ export default function CrearCaso() {
                         </button>
                     </div>
                 </form>
-                
+
             </div>
         </div>
-        
+
     );
 }

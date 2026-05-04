@@ -1,16 +1,19 @@
 .imagenFooter{
-    margin: 30px 0 30px 0;
+    width: 250px;
+    display:flex;
+    margin: auto;
 }
 
 .marcoFooter{
-    display: grid;
-    grid-template-columns: 1fr 0.1fr 1.4fr 1.4fr 1fr;
+    display: flex;
     background-image: url('/images/fondo-negro.webp');
 }
 .contactos{
     color: white;
     display: flex;
     flex-direction: column ;
+    align-items: center;
+    justify-content: center;
     margin: 30px 30px 30px 70px;
     padding: 30px;
 }
@@ -20,7 +23,7 @@
     text-align: center;
     text-decoration: underline;
 }
-ul{
+.contactos ul , .rrss ul{
     list-style-type: disc;
 }
 
@@ -35,6 +38,8 @@ ul{
     color: white;
     display: flex;
     flex-direction: column ;
+    align-items: center;
+    justify-content: center;
     margin: 30px 30px 30px 70px;
     padding: 30px;
 }
@@ -70,14 +75,14 @@ ul{
     margin-bottom: 20px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1204px) {
     .marcoFooter {
+        display: flex;
         flex-direction: column;
         align-items: center;
     }
 
     .imagenFooter {
-        width: 40%;
         margin: 20px auto;
         display: block;
     }
@@ -91,15 +96,50 @@ ul{
         width: 100%;
         
     }
+    .googleMaps {
+        margin: 10px 0;
+        display: flex;
+        align-items: center ;
+        padding: 15px;
+        width: 100%;
+    }
     .lineaDivisoria {
         margin: 8px;
         width: 80%;
     }
 }
 
-@media screen and (max-width: 480px) {
-    .imagenFooter {
-        width: 55%;
+@media screen and (max-width: 768px) {
+    .marcoFooter {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
+    .imagenFooter {
+        margin: 20px auto;
+        display: block;
+    }
+
+    .contactos,
+    .rrss {
+        margin: 10px 0;
+        display: flex;
+        align-items: center ;
+        padding: 15px;
+        width: 100%;
+        
+    }
+    .googleMaps {
+        margin: 10px 0;
+        display: flex;
+        align-items: center ;
+        padding: 15px;
+        width: 100%;
+    }
+    .lineaDivisoria {
+        margin: 8px;
+        width: 80%;
+    }
 }
+

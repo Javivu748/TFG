@@ -10,7 +10,7 @@ export default function Layout() {
     const { auth } = usePage().props;
     const user = auth?.user;
 
-    const [botonesVisibles, setBotonesVisibles] = useState([false, false, false, false]);
+    const [botonesVisibles, setBotonesVisibles] = useState([false, false, false]);
 
     const handleLogout = (e) => {
         e.preventDefault();
@@ -32,10 +32,6 @@ export default function Layout() {
         setTimeout(() => {
             setBotonesVisibles([true, true, true, false]);
         }, 600);
-
-        setTimeout(() => {
-            setBotonesVisibles([true, true, true, true]);
-        }, 800);
     }, []);
 
     return (
@@ -44,18 +40,14 @@ export default function Layout() {
                 <a href='/' className="imagen" id='logo'>
                     <ApplicationLogo></ApplicationLogo>
                 </a>
-
                 <div className="botones">
                     <div className={`boton-animado ${botonesVisibles[0] ? 'visible' : ''}`}>
                         <BotonSecundario nombre="Inicio" href="/"></BotonSecundario>
                     </div>
                     <div className={`boton-animado ${botonesVisibles[1] ? 'visible' : ''}`}>
-                        <BotonSecundario nombre="Crear Caso" href="/crear-caso"></BotonSecundario>
-                    </div>
-                    <div className={`boton-animado ${botonesVisibles[2] ? 'visible' : ''}`}>
                         <BotonSecundario nombre="Perfil" href="/"></BotonSecundario>
                     </div>
-                    <div className={`boton-animado ${botonesVisibles[3] ? 'visible' : ''}`}>
+                    <div className={`boton-animado ${botonesVisibles[2] ? 'visible' : ''}`}>
                         <BotonSalir nombre="Cerrar Sesion" pulsar={handleLogout}></BotonSalir>
                     </div>
                 </div>

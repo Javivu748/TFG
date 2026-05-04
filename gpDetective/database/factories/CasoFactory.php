@@ -17,7 +17,10 @@ class CasoFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'titulo' => $this->faker->sentence(3),
+            'descripcion' => $this->faker->paragraph(),
+            'estado' => $this->faker->randomElement(['Pendiente', 'En Progreso', 'Resuelto']),
+            'user_id' => 1, 
         ];
     }
 }

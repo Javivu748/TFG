@@ -14,7 +14,7 @@ class CasoController extends Controller
     public function index()
     {
         return Inertia::render('Dashboard', [
-            'casos' => Auth()->user()->casos()->orderBy('created_at','desc')->get()
+            'casos' => Auth()->user()->casos()->orderBy('created_at', 'desc')->paginate(10)
         ]);
     }
 
@@ -43,7 +43,7 @@ class CasoController extends Controller
             'estado' => $validated['estado'] ?? 'Pendiente',
         ]);
 
-        return redirect()->route('dashboard')->with('success', 'Caso creado correctamente.');
+        return redirect()->route('dashboard');
     }
 
     /**

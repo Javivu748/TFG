@@ -1,6 +1,7 @@
 import PrimaryButton from '@/Components/PrimaryButton';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import GoogleButton from '@/Components/LoginButton';
+import Alert from '@/Components/alerta';
 import { Head, Link, useForm } from '@inertiajs/react';
 import '../../../css/auth-css/login.css'
 
@@ -48,7 +49,7 @@ export default function Login({ status, canResetPassword }) {
                             required
                         />
                         {errors.email && (
-                            <span className="error-message">{errors.email}</span>
+                            <Alert message="El Email y la contraseña no son correctos, intentelo de nuevo" tipo="Error"></Alert>
                         )}
                     </div>
 
@@ -67,7 +68,7 @@ export default function Login({ status, canResetPassword }) {
                             required
                         />
                         {errors.password && (
-                            <span className="error-message">{errors.password}</span>
+                            <Alert message="La Contraseña no es correcta" tipo="Error"></Alert>
                         )}
                     </div>
 

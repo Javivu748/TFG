@@ -9,6 +9,7 @@ use Inertia\Inertia;
 use App\Models\User;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\CasoController;
+use App\Http\Controllers\AdminController;
 
 //Ruta a la Landing Page
 Route::get('/', function () {
@@ -21,6 +22,7 @@ Route::get('/sobre', function () {
 })->name('sobre');
 
 Route::get('/dashboard', [CasoController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/admin/dashboard', [AdminController::class, 'index'])->middleware(['auth', 'verified'])->name('admin.dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

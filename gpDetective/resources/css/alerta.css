@@ -1,0 +1,66 @@
+.imagenAlert img {
+    width: 90px;
+    height: auto;
+    padding: 5px;
+    margin-right: 10px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.95);
+    }
+}
+
+.fondo-modal {
+    animation: fadeIn 0.3s ease forwards;
+}
+
+.fondo-modal.saliendo {
+    animation: fadeOut 0.3s ease forwards;
+}
+
+.caja-modal {
+    animation: slideDown 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.caja-modal.saliendo {
+    animation: slideUp 0.3s ease forwards;
+}

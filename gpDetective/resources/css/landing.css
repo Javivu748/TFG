@@ -167,13 +167,13 @@
         text-align: center;
     }
 
-    .entradaImagen h1,
+    
     .TextoBienvenida {
-        font-size: 3rem;
+        font-size: 22px;
     }
 
-    .entradaImagen p {
-        font-size: 0.95rem;
+    .txt-info {
+        font-size: 0.9rem;
         padding: 0 10px;
     }
 

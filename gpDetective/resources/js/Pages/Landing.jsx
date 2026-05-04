@@ -35,7 +35,7 @@ export default function Landing() {
                         direction="top"
                         className="TextoBienvenida"
                     />
-                    <p>Detective privado en la provincia de cadiz para investigaciones de cualquier tipo</p>
+                    <p className='txt-info'>Detective privado en la provincia de cadiz para investigaciones de cualquier tipo</p>
                 </div>
             </section>
 
