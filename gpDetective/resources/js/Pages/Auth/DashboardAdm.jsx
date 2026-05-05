@@ -1,9 +1,10 @@
 import { usePage, router } from '@inertiajs/react';
 import Layout from '../../Layouts/dashLayout.jsx';
+import BotonPrimario from '@/Components/PrimaryButton.jsx';
 import '../../../css/auth-css/dashboard.css';
 
 export default function DashboardAdm() {
-    const { auth, users = { data: [] } } = usePage().props;
+    const { totalUsers, users = { data: [] } } = usePage().props;
 
     const getInitials = (name, email) => {
         const str = name ?? email ?? '';
@@ -19,7 +20,7 @@ export default function DashboardAdm() {
                 <section className="dashboard-casos admin-panel">
                     <div className="header-casos">
                         <h2>Usuarios registrados</h2>
-                        <p>Usuarios Registrados:{users.data.length}</p>
+                        <p>Usuarios Registrados:{totalUsers}</p>
                     </div>
 
                     {users.data.length > 0 ? (
@@ -30,6 +31,7 @@ export default function DashboardAdm() {
                                         <th>Usuario</th>
                                         <th>Email</th>
                                         <th>Telefono</th>
+                                        <th>Informacion</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -46,6 +48,9 @@ export default function DashboardAdm() {
                                             <td>{user.email}</td>
                                             <td>
                                                 {user.telefono ?? 'Sin teléfono'}
+                                            </td>
+                                            <td>
+                                                <BotonPrimario href={`/admin/usuarios/${user.id}`} nombre={<i class="fa-solid fa-user"></i>}></BotonPrimario>
                                             </td>
                                         </tr>
                                     ))}

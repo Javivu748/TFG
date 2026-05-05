@@ -23,6 +23,7 @@ Route::get('/sobre', function () {
 
 Route::get('/dashboard', [CasoController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/admin/dashboard', [AdminController::class, 'index'])->middleware(['auth', 'verified'])->name('admin.dashboard');
+Route::get('/admin/usuarios/{user}', [AdminController::class, 'detalleUsuario'])->middleware(['auth', 'verified'])->name('admin.usuario.detalle');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

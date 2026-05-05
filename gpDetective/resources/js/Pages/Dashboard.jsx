@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { usePage, router } from '@inertiajs/react';
+import { usePage, router ,Head} from '@inertiajs/react';
 import Layout from '../Layouts/dashLayout.jsx';
 import '../../css/auth-css/dashboard.css';
 import BotonPrimario from '@/Components/PrimaryButton';
@@ -34,6 +34,7 @@ export default function Dashboard() {
             <Layout />
 
             <main className="dashboard-container">
+                <Head title="Dashboard"/>
                 <h1>Bienvenido, {auth.user.nombre}</h1>
 
                 <section className="dashboard-casos">

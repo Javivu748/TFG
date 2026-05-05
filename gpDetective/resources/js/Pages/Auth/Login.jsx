@@ -21,7 +21,7 @@ export default function Login({ status, canResetPassword }) {
 
     return (
         <div className="login-container">
-            <Head title="Log in" />
+            <Head title="Inicia Sesion" />
             <div className="login-card">
 
                 <ApplicationLogo></ApplicationLogo>
