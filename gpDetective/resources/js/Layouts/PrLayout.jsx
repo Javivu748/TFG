@@ -16,12 +16,12 @@ export default function Layout() {
     useEffect(() => {
         // Primer botón aparece a los 200ms
         setTimeout(() => {
-            setBotonesVisibles([true, false, false]);
+            setBotonesVisibles([true, false, false,false]);
         }, 200);
 
         // Segundo botón aparece a los 400ms
         setTimeout(() => {
-            setBotonesVisibles([true, true, false]);
+            setBotonesVisibles([true, true, false,false]);
         }, 400);
 
         // Tercer botón aparece a los 600ms
@@ -49,7 +49,7 @@ export default function Layout() {
                         <BotonPrimario nombre="Servicios" href="/servicios"></BotonPrimario>
                     </div>
                     <div className={`boton-animado ${botonesVisibles[2] ? 'visible' : ''}`}>
-                        <BotonPrimario nombre="Preguntas" href="/"></BotonPrimario>
+                        <BotonPrimario nombre="Preguntas" href="/preguntas"></BotonPrimario>
                     </div> 
                     
                 </div>

@@ -20,6 +20,10 @@ Route::get('/servicios', function () {
     return Inertia::render('Servicios');
 })->name('servicios');
 
+Route::get('/preguntas', function () {
+    return Inertia::render('Preguntas');
+})->name('preguntas');
+
 Route::get('/sobre', function () {
     return Inertia::render('Sobre');
 })->name('sobre');
