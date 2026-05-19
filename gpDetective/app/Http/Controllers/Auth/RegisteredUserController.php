@@ -32,7 +32,6 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'nombre' => 'required|string|max:255',
-            'apellido' => 'required|string|max:255',
             'telefono' => 'required|string|max:50|unique:users,telefono',
             'email' => 'required|string|email|max:255|unique:users,email',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
@@ -40,7 +39,6 @@ class RegisteredUserController extends Controller
 
         $user = User::create([
             'nombre' => $request->nombre,
-            'apellido' => $request->apellido,
             'telefono' => $request->telefono,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -50,6 +48,9 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('dashboard', absolute: false))->with('alerta', [
+                'tipo' => 'Bienvenido',
+                'mensaje' => 'Bienvenido a GP Detective, tu cuenta ha sido creada exitosamente.',
+            ]);;
     }
 }

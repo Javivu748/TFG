@@ -16,6 +16,9 @@ Route::get('/', function () {
     return Inertia::render('Landing');
 });
 
+Route::get('/servicios', function () {
+    return Inertia::render('Servicios');
+})->name('servicios');
 
 Route::get('/sobre', function () {
     return Inertia::render('Sobre');
@@ -24,7 +27,8 @@ Route::get('/sobre', function () {
 Route::get('/dashboard', [CasoController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/admin/dashboard', [AdminController::class, 'index'])->middleware(['auth', 'verified'])->name('admin.dashboard');
 Route::get('/admin/usuarios/{user}', [AdminController::class, 'detalleUsuario'])->middleware(['auth', 'verified'])->name('admin.usuario.detalle');
-
+Route::delete('/admin/usuarios/{user}', [AdminController::class, 'eliminarUsuario'])->middleware(['auth', 'verified'])->name('admin.usuario.eliminar');
+Route::post('/admin/casos/{id}/alternar-estado', [CasoController::class, 'alternarEstado'])->middleware(['auth', 'verified'])->name('admin.caso.alternar-estado');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

@@ -40,7 +40,7 @@ export default function Landing() {
             </section>
 
             <section ref={sectionRef} className={`informacion ${visible ? 'aparecer' : ''}`}>
-                <h1>Que ofrecemos</h1>
+                <h1>¿Quien es GinPer?</h1>
                 <div className="cajas-info">
                     <div className="caja-info">
                         <div className="flip-card-inner">

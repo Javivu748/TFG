@@ -49,7 +49,7 @@ export default function Login({ status, canResetPassword }) {
                             required
                         />
                         {errors.email && (
-                            <Alert message="El Email y la contraseña no son correctos, intentelo de nuevo" tipo="Error"></Alert>
+                            <Alert message="El Email y la contraseña no son correctos, intentelo de nuevo" tipo="Error" recargar={true}></Alert>
                         )}
                     </div>
 
@@ -68,7 +68,7 @@ export default function Login({ status, canResetPassword }) {
                             required
                         />
                         {errors.password && (
-                            <Alert message="La Contraseña no es correcta" tipo="Error"></Alert>
+                            <Alert message="La Contraseña no es correcta" tipo="Error" recargar={true}></Alert>
                         )}
                     </div>
 
@@ -94,7 +94,7 @@ export default function Login({ status, canResetPassword }) {
                     <div className="logGoogle">
                         <GoogleButton></GoogleButton>
                         {errors.google && (
-                            <div className="error-message">{errors.google}</div>
+                            <Alert message={errors.google} tipo="Error" recargar={true}></Alert>
                         )}
                     </div>
 

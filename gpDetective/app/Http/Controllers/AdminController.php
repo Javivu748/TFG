@@ -8,13 +8,23 @@ use Inertia\Inertia;
 
 class AdminController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $this->authorizeAdmin();
 
-        $totalUsers = User::count();
 
-        $users = User::with('casos')
+
+        $query = User::with('casos');
+
+
+
+        if ($request->filled('search')) {
+            $query->where('nombre', 'like', "%{$request->search}%")->get();
+        }
+
+        $totalUsers = $query->count();
+
+        $users = $query
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
@@ -31,7 +41,19 @@ class AdminController extends Controller
         $user->load('casos');
 
         return Inertia::render('Auth/DetalleUsuario', [
-            'user' => $user,
+            'users' => $user,
+        ]);
+    }
+
+    public function eliminarUsuario(User $user)
+    {
+        $this->authorizeAdmin();
+
+        $user->delete();
+
+        return redirect()->route('admin.dashboard')->with('alerta', [
+            'tipo' => 'Exito',
+            'mensaje' => 'Usuario eliminado correctamente',
         ]);
     }
 

@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use App\Models\Caso;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Mail\NuevoCasoMail;
+use Illuminate\Support\Facades\Mail;
 
 class CasoController extends Controller
 {
@@ -31,21 +36,58 @@ class CasoController extends Controller
      */
     public function store(Request $request)
     {
+        
+        $casoHoy = Auth()->user()->casos()
+            ->whereDate('created_at', Carbon::today())
+            ->exists();
+
+        if ($casoHoy) {
+            return redirect()->route('dashboard')->with('alerta', [
+                'tipo' => 'Error',
+                'mensaje' => 'Ya has creado un caso intentelo mañana',
+            ]);
+        }
+        
+
         $validated = $request->validate([
             'titulo' => 'required|string|max:255',
             'descripcion' => 'nullable|string|max:1000',
             'estado' => 'nullable|string|max:100',
         ]);
 
-        Auth()->user()->casos()->create([
+        $user = Auth::user();
+
+        $caso = Auth()->user()->casos()->create([
             'titulo' => $validated['titulo'],
             'descripcion' => $validated['descripcion'] ?? '',
             'estado' => $validated['estado'] ?? 'Pendiente',
         ]);
 
-        return redirect()->route('dashboard');
-    }
+        Mail::to("javivu9@gmail.com")
+            ->send(new NuevoCasoMail($user, $caso));
 
+        return redirect()->route('dashboard')->with('alerta', [
+                'tipo' => 'Exito',
+                'mensaje' => 'Caso creado correctamente.',
+            ]);;
+    }
+    public function alternarEstado($id){
+        $caso = Caso::findOrFail($id);
+
+        $user = User::where('id', $caso->user_id)->first();
+
+        if($caso->estado === 'Pendiente'){
+            $caso->estado = 'En Proceso';
+        }elseif($caso->estado === 'En Proceso'){
+            $caso->estado = 'Pendiente';
+        }
+        $caso->save();
+
+        return redirect()->route('admin.usuario.detalle', ['user' => $user])->with('alerta', [
+                'tipo' => 'Exito',
+                'mensaje' => 'Estado del caso actualizado correctamente.',
+        ]);;
+    }
     /**
      * Display the specified resource.
      */

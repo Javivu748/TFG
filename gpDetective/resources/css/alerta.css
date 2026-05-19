@@ -64,3 +64,75 @@
 .caja-modal.saliendo {
     animation: slideUp 0.3s ease forwards;
 }
+
+.boton-confirmar {
+    position: relative;
+    align-items: center;
+    justify-content: right;
+    padding: 12px 24px;
+    color: #000;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    overflow: hidden;
+    transition: color 0.4s ease;
+    z-index: 1;
+}
+
+.boton-confirmar::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background-color: #e2ae2b;
+    transition: height 0.4s ease;
+    z-index: -1;
+}
+
+.boton-confirmar:hover {
+    color: white;
+}
+
+.boton-confirmar:hover::before {
+    height: 100%;
+}
+
+.boton-cancelar {
+    position: relative;
+    align-items: center;
+    justify-content: right;
+    padding: 12px 24px;
+    color: #000;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    overflow: hidden;
+    transition: color 0.4s ease;
+    z-index: 1;
+}
+
+.boton-cancelar::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background-color: #f90707;
+    transition: height 0.4s ease;
+    z-index: -1;
+}
+
+.boton-cancelar:hover {
+    color: white;
+}
+
+.boton-cancelar:hover::before {
+    height: 100%;
+}

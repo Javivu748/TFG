@@ -1,27 +1,78 @@
 import { usePage, router } from '@inertiajs/react';
+import { useState ,useEffect } from 'react';
 import Layout from '../../Layouts/dashLayout.jsx';
 import BotonPrimario from '@/Components/PrimaryButton.jsx';
 import '../../../css/auth-css/dashboard.css';
+import Alerta from '@/Components/alerta';
 
 export default function DashboardAdm() {
-    const { totalUsers, users = { data: [] } } = usePage().props;
+    const { totalUsers, users = { data: [] } ,flash} = usePage().props;
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const [alerta, setAlerta] = useState(null);
 
     const getInitials = (name, email) => {
         const str = name ?? email ?? '';
         return str.slice(0, 2).toUpperCase();
     };
 
+    useEffect(() => {
+        const leerAlerta = () => {
+            if (flash?.alerta) {
+                setAlerta(flash.alerta);
+            }
+            
+        };
+        leerAlerta(); 
+        document.addEventListener('inertia:finish', leerAlerta);
+
+        return () => {
+            document.removeEventListener('inertia:finish', leerAlerta);
+        };
+    }, []);
+
+    const buscarUser = (e) => {
+        e.preventDefault();
+        if (searchTerm.trim()) {
+            router.get('/admin/dashboard', { search: searchTerm });
+        } else {
+            router.get('/admin/dashboard');
+        }
+    };
+
+    const limpiarForm = () => {
+        setSearchTerm('');
+        router.get('/admin/dashboard');
+    };
+
     return (
         <>
             <Layout />
+            
             <main className="dashboard-container">
                 <h1>Panel Administrador</h1>
 
                 <section className="dashboard-casos admin-panel">
                     <div className="header-casos">
-                        <h2>Usuarios registrados</h2>
-                        <p>Usuarios Registrados:{totalUsers}</p>
+                        <h2>Administrador Usuarios</h2>
+                        <p>Usuarios:{totalUsers}</p>
                     </div>
+
+                    <form onSubmit={buscarUser} className="search-form">
+                        <input
+                            type="text"
+                            placeholder="Buscar usuario por nombre..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="search-input"
+                        />
+                        <button type="submit" className="search-button">
+                            <i className="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                        <button type="button" onClick={limpiarForm} className="clear-button">
+                            <i className="fa-solid fa-xmark"></i>
+                        </button>
+                    </form>
 
                     {users.data.length > 0 ? (
                         <div className="admin-table-wrap">
@@ -75,6 +126,7 @@ export default function DashboardAdm() {
                     ) : null}
                 </section>
             </main>
+            {alerta && <Alerta tipo={alerta.tipo} message={alerta.mensaje} />}
         </>
     );
 }

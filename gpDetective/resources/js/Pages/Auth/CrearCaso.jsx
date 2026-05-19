@@ -15,10 +15,6 @@ export default function CrearCaso() {
         post(route('crear.caso.store'), {
             onSuccess: () => {
                 reset('titulo', 'descripcion');
-                sessionStorage.setItem('alerta', JSON.stringify({
-                    tipo: 'Exito',
-                    mensaje: 'Caso creado correctamente.'
-                }));
             },
         });
     };

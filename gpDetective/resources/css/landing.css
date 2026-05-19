@@ -1,16 +1,18 @@
-.fondoImagen{
+.fondoImagen {
     background-image: url('/images/cadiz.webp');
     background-size: cover;
     background-attachment: fixed;
     height: 600px;
     width: 100%;
 }
-.TextoBienvenida{
+
+.TextoBienvenida {
     font-size: 40px;
     opacity: 0;
     color: white;
     animation: paAbajo 1s ease forwards;
 }
+
 .entradaImagen {
     background-color: rgba(0, 0, 0, 0.4);
     height: 600px;
@@ -20,19 +22,21 @@
     align-items: center;
     width: 100%;
 }
-.entradaImagen h1{
+
+.entradaImagen h1 {
     font-size: 40px;
     opacity: 0;
     color: white;
     transform: translateY(-20px);
     animation: paAbajo 1s ease forwards;
 }
-.entradaImagen p{
+
+.entradaImagen p {
     color: white;
 }
 
 @keyframes paAbajo {
-    to{
+    to {
         opacity: 1;
         transform: translateX(0);
     }
@@ -74,30 +78,36 @@
 
 /* Cuando el padre tiene la clase 'aparecer' */
 .informacion.aparecer .caja-info {
-  opacity: 1;
-  transform: translateX(0);
+    opacity: 1;
+    transform: translateX(0);
 }
 
 /* 2. DIRECCIONES INDIVIDUALES (Punto de partida) */
-.caja-info:nth-child(1) { 
-  transform: translateX(-100px); /* Viene de la Izquierda */
-  transition-delay: 0.1s; 
+.caja-info:nth-child(1) {
+    transform: translateX(-100px);
+    /* Viene de la Izquierda */
+    transition-delay: 0.1s;
 }
 
-.caja-info:nth-child(2) { 
-  transform: translateX(100px);  /* Viene de la Derecha */
-  transition-delay: 0.3s; 
+.caja-info:nth-child(2) {
+    transform: translateX(100px);
+    /* Viene de la Derecha */
+    transition-delay: 0.3s;
 }
 
-.caja-info:nth-child(3) { 
-  transform: translateX(-100px); /* Viene de Arriba */
-  transition-delay: 0.5s; 
+.caja-info:nth-child(3) {
+    transform: translateX(-100px);
+    /* Viene de Arriba */
+    transition-delay: 0.5s;
 }
 
-.caja-info:nth-child(4) { 
-  transform: translateX(100px);  /* Viene de Abajo */
-  transition-delay: 0.7s; 
+.caja-info:nth-child(4) {
+    transform: translateX(100px);
+    /* Viene de Abajo */
+    transition-delay: 0.7s;
 }
+
+
 
 .flip-card-inner {
     position: relative;
@@ -126,18 +136,47 @@
 }
 
 /* Cara frontal - Título */
-.flip-card-front {
-    background-color:#FFC830;
+.cajas-info .caja-info:nth-child(1) .flip-card-front {
+    background-image: url('/images/fotodt1.webp');
+    background-size: cover;
+    background-position: center;
+}
 
+.cajas-info .caja-info:nth-child(2) .flip-card-front {
+    background-image: url('/images/fotodt2.webp');
+    background-size: cover;
+    background-position: center;
+}
+
+.cajas-info .caja-info:nth-child(3) .flip-card-front {
+    background-image: url('/images/fotodt3.webp');
+    background-size: cover;
+    background-position: center;
+}
+
+.cajas-info .caja-info:nth-child(4) .flip-card-front {
+    background-image: url('/images/fotodt4.webp');
+    background-size: cover;
+    background-position: center;
 }
 
 .flip-card-front h3 {
     font-size: 1.8rem;
-    color: black;
-    font-weight: 700;
+    color: white;
+    font-weight: 400;
     text-align: center;
+    z-index: 1;
     line-height: 1.3;
 }
+
+.flip-card-front::after {
+    content: '';
+    position: absolute;
+    inset: 0; /* equivale a top/right/bottom/left: 0 */
+    background-color: rgba(0, 0, 0, 0.5); /* ajusta la opacidad */
+}
+
+
 
 /* Cara trasera - Texto */
 .flip-card-back {
@@ -155,10 +194,12 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+
     /* Hero */
     .fondoImagen {
         height: 400px;
-        background-attachment: scroll; /* fixed no funciona bien en móvil */
+        background-attachment: scroll;
+        /* fixed no funciona bien en móvil */
     }
 
     .entradaImagen {
@@ -167,7 +208,7 @@
         text-align: center;
     }
 
-    
+
     .TextoBienvenida {
         font-size: 22px;
     }
@@ -224,6 +265,7 @@
 }
 
 @media (max-width: 310px) {
+
     .entradaImagen h1,
     .TextoBienvenida {
         font-size: 3rem;

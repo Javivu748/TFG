@@ -46,7 +46,7 @@ export default function Layout() {
                         <BotonPrimario nombre="Sobre GinPer" href="/sobre"></BotonPrimario>
                     </div>
                     <div className={`boton-animado ${botonesVisibles[1] ? 'visible' : ''}`}>
-                        <BotonPrimario nombre="Servicios" href="/"></BotonPrimario>
+                        <BotonPrimario nombre="Servicios" href="/servicios"></BotonPrimario>
                     </div>
                     <div className={`boton-animado ${botonesVisibles[2] ? 'visible' : ''}`}>
                         <BotonPrimario nombre="Preguntas" href="/"></BotonPrimario>

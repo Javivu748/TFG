@@ -1,5 +1,6 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import { Head, Link, useForm } from '@inertiajs/react';
+import Alert from '@/Components/alerta';
 import '../../../css/auth-css/register.css';
 
 export default function Register() {
@@ -48,7 +49,7 @@ export default function Register() {
                             required
                         />
                         {errors.nombre && (
-                            <span className="error-message">{errors.nombre}</span>
+                            <Alert message={{ errors: errors.nombre }} tipo="Error"></Alert>
                         )}
                     </div>
 
@@ -65,7 +66,7 @@ export default function Register() {
                             required
                         />
                         {errors.telefono && (
-                            <span className="error-message">{errors.telefono}</span>
+                            <Alert message={{ errors: errors.telefono }} tipo="Error"></Alert>
                         )}
                     </div>
 
@@ -82,7 +83,7 @@ export default function Register() {
                             required
                         />
                         {errors.email && (
-                            <span className="error-message">{errors.email}</span>
+                            <Alert message={{ errors: errors.email }} tipo="Error"></Alert>
                         )}
                     </div>
 
@@ -99,7 +100,7 @@ export default function Register() {
                             required
                         />
                         {errors.password && (
-                            <span className="error-message">{errors.password}</span>
+                            <Alert message={{ errors: errors.password }} tipo="Error"></Alert>
                         )}
                     </div>
 
@@ -118,7 +119,7 @@ export default function Register() {
                             required
                         />
                         {errors.password_confirmation && (
-                            <span className="error-message">{errors.password_confirmation}</span>
+                            <Alert message={{ errors: errors.password_confirmation }} tipo="Error"></Alert>
                         )}
                     </div>
 

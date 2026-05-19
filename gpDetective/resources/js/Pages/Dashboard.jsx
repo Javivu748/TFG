@@ -9,17 +9,16 @@ import Alerta from '@/Components/alerta';
 
 
 export default function Dashboard() {
-    const { auth, casos = { data: [], links: [] } } = usePage().props;
+    const { auth, casos = { data: [], links: [] } ,flash} = usePage().props;
 
     const [alerta, setAlerta] = useState(null);
 
     useEffect(() => {
         const leerAlerta = () => {
-            const guardada = sessionStorage.getItem('alerta');
-            if (guardada) {
-                setAlerta(JSON.parse(guardada));
-                sessionStorage.removeItem('alerta');
+            if (flash?.alerta) {
+                setAlerta(flash.alerta);
             }
+            
         };
         leerAlerta(); 
         document.addEventListener('inertia:finish', leerAlerta);
@@ -28,6 +27,17 @@ export default function Dashboard() {
             document.removeEventListener('inertia:finish', leerAlerta);
         };
     }, []);
+
+    const getEstadoColor = (estado) => {
+        switch (estado) {
+            case 'Pendiente':
+                return '#fbbf24';
+            case 'En Proceso':
+                return '#3b82f6';
+            default:
+                return '#6b7280';
+        }
+    };
 
     return (
         <>
@@ -52,7 +62,12 @@ export default function Dashboard() {
                                             <h3>{caso.titulo ?? 'Caso sin título'}</h3>
                                         </div>
                                         <p>{caso.descripcion ?? 'Sin descripción'}</p>
-                                        {caso.estado && <span className="estado">Estado: {caso.estado}</span>}
+                                        {caso.estado && <span
+                                                    className="estado"
+                                                    style={{ backgroundColor: getEstadoColor(caso.estado) }}
+                                                >
+                                                    Estado: {caso.estado}
+                                                </span>}
                                     </li>
                                 ))}
                             </ul>
