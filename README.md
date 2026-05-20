@@ -1,6 +1,6 @@
 <div align="center">
 
-![GINPER](/images/GINPERFINAL.png)
+ <img src="gpDetective/public/images/GINPERFINAL.jpg" alt="GP Detective" width="700"/>
 
 ### *— Cádiz, Ciudad de los Vientos y los Secretos —*
 
