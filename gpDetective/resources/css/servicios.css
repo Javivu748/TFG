@@ -48,3 +48,52 @@
     text-align: center;
     margin-bottom: 10px;
 }
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .servicio-conten {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .servicio-imagen,
+    .servicio-texto {
+        width: 90%;
+        margin: 10px 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .ServiciosTitulo {
+        font-size: 2.4rem;
+        margin-bottom: 16px;
+    }
+
+    .servicio-imagen {
+        width: 100%;
+        transform: translateX(0);
+    }
+
+    .servicio-imagen:last-child {
+        transform: translateX(0);
+    }
+
+    .servicio-imagen img {
+        width: 100%;
+    }
+
+    .servicio-texto {
+        width: 100%;
+        padding: 0 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .ServiciosTitulo {
+        font-size: 2rem;
+    }
+
+    .servicio-texto p {
+        font-size: 1rem;
+    }
+}
