@@ -1,6 +1,6 @@
 <div align="center">
 
- <img src="gpDetective/public/images/GINPERFINAL.jpg" alt="GP Detective" width="700"/>
+ <img src="gpDetective/public/images/GINPERFINALedit.jpg" alt="GP Detective" width="600"/>
 
 ### *— Cádiz, Ciudad de los Vientos y los Secretos —*
 
