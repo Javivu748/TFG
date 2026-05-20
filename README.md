@@ -1,6 +1,6 @@
 <div align="center">
 
-(assets/images/GINPERFINAL.png)
+![GINPER](/images/GINPERFINAL.png)
 
 ### *— Cádiz, Ciudad de los Vientos y los Secretos —*
 
