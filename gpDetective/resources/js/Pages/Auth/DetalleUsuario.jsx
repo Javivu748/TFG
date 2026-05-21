@@ -143,6 +143,12 @@ export default function DetalleUsuario() {
                                                 >
                                                     <i className="fa-solid fa-exchange-alt"></i>
                                                 </button>
+                                                <button
+                                                    onClick={() => router.delete(`/admin/casos/${caso.id}`)}
+                                                    className="boton-primario"
+                                                >
+                                                    <i class="fa-solid fa-check-double"></i>
+                                                </button>
                                             </td>
                                         </tr>
                                     ))}

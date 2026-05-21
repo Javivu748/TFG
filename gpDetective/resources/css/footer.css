@@ -1,8 +1,12 @@
 .imagenFooter{
-    width: 250px;
     display:flex;
-    margin: auto;
+    width: 300px;
+    align-items: center;
 }
+.imagenFooter img{
+    margin-inline: auto;
+}
+
 
 .marcoFooter{
     display: flex;
@@ -83,7 +87,7 @@
     }
 
     .imagenFooter {
-        margin: 20px auto;
+        margin-inline: auto;
         display: block;
     }
 

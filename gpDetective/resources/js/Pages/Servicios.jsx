@@ -1,6 +1,7 @@
 import Header from '../Layouts/PrLayout';
 import Footer from '../Layouts/Footer';
 import BlurText from "../Components/BlurText.jsx";
+import { Head } from '@inertiajs/react';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import '../../css/servicios.css'
 import { useEffect, useRef, useState } from 'react';
@@ -35,6 +36,7 @@ export default function Servicios() {
 
     return (
         <>
+            <Head title="Servicios"/>
             <Header />
             <div className="servicios" ref={sectionRef}>
                 <BlurText

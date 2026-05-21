@@ -3,11 +3,13 @@ import Header from '../Layouts/PrLayout';
 import Footer from '../Layouts/Footer';
 import BlurText from "../Components/BlurText.jsx";
 import ApplicationLogo from '@/Components/ApplicationLogo';
+import { Head } from '@inertiajs/react';
 
 
 export default function Sobre() {
     return (    
         <>
+                <Head title="Sobre"/>
             <Header></Header>
             <section className='informacion'>
                 <BlurText

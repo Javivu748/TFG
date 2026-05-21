@@ -4,6 +4,7 @@ import Footer from '../Layouts/Footer';
 import BlurText from "../Components/BlurText.jsx";
 import '../../css/preguntas.css'
 import { useEffect } from 'react';
+import { Head } from '@inertiajs/react';
 
 export default function Preguntas() {
 
@@ -17,6 +18,7 @@ export default function Preguntas() {
     return (
         <>
             <Header />
+            <Head title="Preguntas" />
             <div className="preguntas-cont">
                 <BlurText
                     text="Preguntas Frecuentes"

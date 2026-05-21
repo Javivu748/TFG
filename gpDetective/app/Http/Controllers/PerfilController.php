@@ -11,15 +11,15 @@ use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class ProfileController extends Controller
+class PerfilController extends Controller
 {
     /**
      * Display the user's profile form.
      */
     public function edit(Request $request): Response
     {
-        return Inertia::render('Profile/Edit', [
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+        return Inertia::render('Auth/Perfil', [
+            'user' => $request->user(),
             'status' => session('status'),
         ]);
     }
@@ -37,27 +37,13 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit');
+        return Redirect::route('dashboard')->with('alerta', [
+                'tipo' => 'Exito',
+                'mensaje' => 'Caso Actualizado Correctamente',
+            ]);;
     }
 
     /**
      * Delete the user's account.
      */
-    public function destroy(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'password' => ['required', 'current_password'],
-        ]);
-
-        $user = $request->user();
-
-        Auth::logout();
-
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
-    }
 }

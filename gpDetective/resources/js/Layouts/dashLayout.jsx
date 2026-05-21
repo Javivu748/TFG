@@ -45,7 +45,7 @@ export default function Layout() {
                         <BotonSecundario nombre="Inicio" href="/"></BotonSecundario>
                     </div>
                     <div className={`boton-animado ${botonesVisibles[1] ? 'visible' : ''}`}>
-                        <BotonSecundario nombre="Perfil" href="/"></BotonSecundario>
+                        <BotonSecundario nombre="Perfil" href="/profile"></BotonSecundario>
                     </div>
                     <div className={`boton-animado ${botonesVisibles[2] ? 'visible' : ''}`}>
                         <BotonSalir nombre="Cerrar Sesion" pulsar={handleLogout}></BotonSalir>

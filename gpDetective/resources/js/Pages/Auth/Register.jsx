@@ -6,7 +6,6 @@ import '../../../css/auth-css/register.css';
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
         nombre: '',
-        apellido: '',
         telefono: '',
         email: '',
         password: '',
@@ -49,7 +48,7 @@ export default function Register() {
                             required
                         />
                         {errors.nombre && (
-                            <Alert message={{ errors: errors.nombre }} tipo="Error"></Alert>
+                            <Alert message={Array.isArray(errors.nombre) ? errors.nombre[0] : errors.nombre} tipo="Error"></Alert>
                         )}
                     </div>
 
@@ -66,7 +65,7 @@ export default function Register() {
                             required
                         />
                         {errors.telefono && (
-                            <Alert message={{ errors: errors.telefono }} tipo="Error"></Alert>
+                            <Alert message={Array.isArray(errors.telefono) ? errors.telefono[0] : errors.telefono} tipo="Error"></Alert>
                         )}
                     </div>
 
@@ -83,7 +82,7 @@ export default function Register() {
                             required
                         />
                         {errors.email && (
-                            <Alert message={{ errors: errors.email }} tipo="Error"></Alert>
+                            <Alert message={Array.isArray(errors.email) ? errors.email[0] : errors.email} tipo="Error"></Alert>
                         )}
                     </div>
 
@@ -100,7 +99,7 @@ export default function Register() {
                             required
                         />
                         {errors.password && (
-                            <Alert message={{ errors: errors.password }} tipo="Error"></Alert>
+                            <Alert message={Array.isArray(errors.password) ? errors.password[0] : errors.password} tipo="Error"></Alert>
                         )}
                     </div>
 
@@ -119,7 +118,7 @@ export default function Register() {
                             required
                         />
                         {errors.password_confirmation && (
-                            <Alert message={{ errors: errors.password_confirmation }} tipo="Error"></Alert>
+                            <Alert message={Array.isArray(errors.password_confirmation) ? errors.password_confirmation[0] : errors.password_confirmation} tipo="Error"></Alert>
                         )}
                     </div>
 

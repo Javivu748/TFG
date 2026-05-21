@@ -48,7 +48,6 @@ class CasoController extends Controller
             ]);
         }
         
-
         $validated = $request->validate([
             'titulo' => 'required|string|max:255',
             'descripcion' => 'nullable|string|max:1000',
@@ -71,23 +70,7 @@ class CasoController extends Controller
                 'mensaje' => 'Caso creado correctamente.',
             ]);;
     }
-    public function alternarEstado($id){
-        $caso = Caso::findOrFail($id);
-
-        $user = User::where('id', $caso->user_id)->first();
-
-        if($caso->estado === 'Pendiente'){
-            $caso->estado = 'En Proceso';
-        }elseif($caso->estado === 'En Proceso'){
-            $caso->estado = 'Pendiente';
-        }
-        $caso->save();
-
-        return redirect()->route('admin.usuario.detalle', ['user' => $user])->with('alerta', [
-                'tipo' => 'Exito',
-                'mensaje' => 'Estado del caso actualizado correctamente.',
-        ]);;
-    }
+    
     /**
      * Display the specified resource.
      */

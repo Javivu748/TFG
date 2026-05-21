@@ -6,9 +6,12 @@
 }
 
 .sobre-titulo {
-    font-size: 40px;
-    margin-bottom: 30px;
-    text-align: center;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
 }
 
 .cajaContenido {

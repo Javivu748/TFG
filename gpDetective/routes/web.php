@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PerfilController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\CompletarPerfil;
@@ -32,11 +32,12 @@ Route::get('/dashboard', [CasoController::class, 'index'])->middleware(['auth', 
 Route::get('/admin/dashboard', [AdminController::class, 'index'])->middleware(['auth', 'verified'])->name('admin.dashboard');
 Route::get('/admin/usuarios/{user}', [AdminController::class, 'detalleUsuario'])->middleware(['auth', 'verified'])->name('admin.usuario.detalle');
 Route::delete('/admin/usuarios/{user}', [AdminController::class, 'eliminarUsuario'])->middleware(['auth', 'verified'])->name('admin.usuario.eliminar');
-Route::post('/admin/casos/{id}/alternar-estado', [CasoController::class, 'alternarEstado'])->middleware(['auth', 'verified'])->name('admin.caso.alternar-estado');
+Route::post('/admin/casos/{id}/alternar-estado', [AdminController::class, 'alternarEstado'])->middleware(['auth', 'verified'])->name('admin.caso.alternar-estado');
+Route::delete('/admin/casos/{id}', [AdminController::class, 'eliminarCaso'])->middleware(['auth', 'verified'])->name('admin.caso.eliminar');
+
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [PerfilController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [PerfilController::class, 'update'])->name('profile.update');
     Route::get('/completar-perfil', [CompletarPerfil::class, 'show'])->name('completar.perfil');
     Route::post('/completar-perfil', [CompletarPerfil::class, 'update']);
     Route::get('/crear-caso', [CasoController::class, 'create'])->name('crear.caso');

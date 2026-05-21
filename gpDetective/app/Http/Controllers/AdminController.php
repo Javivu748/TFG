@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Caso;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Mail\CerrarCasoMail;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -33,6 +36,25 @@ class AdminController extends Controller
             'totalUsers' => $totalUsers,
         ]);
     }
+    public function alternarEstado($id){
+        $this->authorizeAdmin();
+
+        $caso = Caso::findOrFail($id);
+
+        $user = User::where('id', $caso->user_id)->first();
+
+        if($caso->estado === 'Pendiente'){
+            $caso->estado = 'En Proceso';
+        }elseif($caso->estado === 'En Proceso'){
+            $caso->estado = 'Pendiente';
+        }
+        $caso->save();
+
+        return redirect()->route('admin.usuario.detalle', ['user' => $user])->with('alerta', [
+                'tipo' => 'Exito',
+                'mensaje' => 'Estado del caso actualizado correctamente.',
+        ]);;
+    }
 
     public function detalleUsuario(User $user)
     {
@@ -54,6 +76,25 @@ class AdminController extends Controller
         return redirect()->route('admin.dashboard')->with('alerta', [
             'tipo' => 'Exito',
             'mensaje' => 'Usuario eliminado correctamente',
+        ]);
+    }
+
+    public function eliminarCaso($id)
+    {
+        $this->authorizeAdmin();
+        
+        $caso = Caso::findOrFail($id);
+        $user = User::findOrFail($caso->user_id);
+
+        Mail::to($user->email)
+            ->send(new CerrarCasoMail($user, $caso));
+
+        $caso->delete();
+
+
+        return redirect()->back()->with('alerta', [
+            'tipo' => 'Exito',
+            'mensaje' => 'Caso Cerrado Coorrectamente',
         ]);
     }
 
