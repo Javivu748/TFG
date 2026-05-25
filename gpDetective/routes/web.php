@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\CasoController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DetectiveController;
 
 //Ruta a la Landing Page
 Route::get('/', function () {
@@ -27,6 +28,15 @@ Route::get('/preguntas', function () {
 Route::get('/sobre', function () {
     return Inertia::render('Sobre');
 })->name('sobre');
+
+// Rutas protegidas para detectives
+Route::middleware(['auth', 'es.detective'])->group(function () {
+    Route::get('/detective/dashboard', [DetectiveController::class, 'index'])
+         ->name('detective.dashboard');
+
+    Route::get('/detective/casos/{id}', [DetectiveController::class, 'show'])
+         ->name('detective.caso');
+});
 
 Route::get('/dashboard', [CasoController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/admin/dashboard', [AdminController::class, 'index'])->middleware(['auth', 'verified'])->name('admin.dashboard');

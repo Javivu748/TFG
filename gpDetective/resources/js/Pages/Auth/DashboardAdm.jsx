@@ -80,6 +80,7 @@ export default function DashboardAdm() {
                                 <thead>
                                     <tr>
                                         <th>Usuario</th>
+                                        <th>Rol</th>
                                         <th>Email</th>
                                         <th>Telefono</th>
                                         <th>Informacion</th>
@@ -96,6 +97,7 @@ export default function DashboardAdm() {
                                                     <span>{user.nombre ?? user.email}</span>
                                                 </div>
                                             </td>
+                                            <td>{user.rol}</td>
                                             <td>{user.email}</td>
                                             <td>
                                                 {user.telefono ?? 'Sin teléfono'}

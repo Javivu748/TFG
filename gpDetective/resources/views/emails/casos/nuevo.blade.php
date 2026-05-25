@@ -74,7 +74,7 @@
                   
                     <tr>
                         <td align="center" style="padding: 0 40px 32px;">
-                            <a href="{{ route('admin.dashboard') }}"
+                            <a href="{{ route('detective.dashboard') }}"
                                style="display:inline-block; background-color:#000000; color:#ffffff; text-decoration:none;
                                       font-size:15px; font-weight:bold; padding:12px 32px;">
                                 Ver mi caso en el dashboard

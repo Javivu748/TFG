@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\Caso;
 use App\Models\User;
+use App\Models\Detective;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Mail\NuevoCasoMail;
@@ -19,7 +20,7 @@ class CasoController extends Controller
     public function index()
     {
         return Inertia::render('Dashboard', [
-            'casos' => Auth()->user()->casos()->orderBy('created_at', 'desc')->paginate(10)
+            'casos' => Auth::user()->casos()->orderBy('created_at', 'desc')->paginate(10)
         ]);
     }
 
@@ -28,7 +29,18 @@ class CasoController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Auth/CrearCaso');
+        $detectives = Detective::with('user:id,nombre')
+            ->where('estado', 'activo')
+            ->get()
+            ->map(fn($d) => [
+                'id'     => $d->id,
+                'nombre' => $d->user->nombre ?? 'Sin nombre',
+                'badge'  => $d->badge_number,
+            ]);
+
+        return Inertia::render('Auth/CrearCaso', [
+            'detectives' => $detectives,
+        ]);
     }
 
     /**
@@ -36,41 +48,47 @@ class CasoController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $casoHoy = Auth()->user()->casos()
+        $casoHoy = Auth::user()->casos()
             ->whereDate('created_at', Carbon::today())
             ->exists();
 
         if ($casoHoy) {
             return redirect()->route('dashboard')->with('alerta', [
-                'tipo' => 'Error',
+                'tipo'    => 'Error',
                 'mensaje' => 'Ya has creado un caso intentelo mañana',
             ]);
         }
-        
+
         $validated = $request->validate([
-            'titulo' => 'required|string|max:255',
-            'descripcion' => 'nullable|string|max:1000',
-            'estado' => 'nullable|string|max:100',
+            'titulo'        => 'required|string|max:255',
+            'descripcion'   => 'nullable|string|max:1000',
+            'estado'        => 'nullable|string|max:100',
+            'detective_id'  => 'nullable|exists:detectives,id',
         ]);
 
         $user = Auth::user();
 
-        $caso = Auth()->user()->casos()->create([
-            'titulo' => $validated['titulo'],
-            'descripcion' => $validated['descripcion'] ?? '',
-            'estado' => $validated['estado'] ?? 'Pendiente',
+
+
+        $caso = Auth::user()->casos()->create([
+            'titulo'       => $validated['titulo'],
+            'descripcion'  => $validated['descripcion'] ?? '',
+            'estado'       => $validated['estado'] ?? 'Pendiente',
+            'detective_id' => $validated['detective_id'] ?? null,
         ]);
 
-        Mail::to("javivu9@gmail.com")
-            ->send(new NuevoCasoMail($user, $caso));
+        if ($caso->detective_id) {
+            $detective = Detective::with('user')->find($caso->detective_id);
 
+            Mail::to($detective->user->email)
+                ->send(new NuevoCasoMail($user, $caso));
+        } 
         return redirect()->route('dashboard')->with('alerta', [
-                'tipo' => 'Exito',
-                'mensaje' => 'Caso creado correctamente.',
-            ]);;
+            'tipo'    => 'Exito',
+            'mensaje' => 'Caso creado correctamente.',
+        ]);
     }
-    
+
     /**
      * Display the specified resource.
      */

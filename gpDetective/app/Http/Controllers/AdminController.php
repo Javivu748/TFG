@@ -36,23 +36,24 @@ class AdminController extends Controller
             'totalUsers' => $totalUsers,
         ]);
     }
-    public function alternarEstado($id){
+    public function alternarEstado($id)
+    {
         $this->authorizeAdmin();
 
         $caso = Caso::findOrFail($id);
 
-        $user = User::where('id', $caso->user_id)->first();
+        $user = User::findOrFail($caso->detective_id);
 
-        if($caso->estado === 'Pendiente'){
+        if ($caso->estado === 'Pendiente') {
             $caso->estado = 'En Proceso';
-        }elseif($caso->estado === 'En Proceso'){
+        } elseif ($caso->estado === 'En Proceso') {
             $caso->estado = 'Pendiente';
         }
         $caso->save();
 
-        return redirect()->route('admin.usuario.detalle', ['user' => $user])->with('alerta', [
-                'tipo' => 'Exito',
-                'mensaje' => 'Estado del caso actualizado correctamente.',
+        return redirect()->back()->with('alerta', [
+            'tipo' => 'Exito',
+            'mensaje' => 'Estado del caso actualizado correctamente.',
         ]);;
     }
 
@@ -60,7 +61,10 @@ class AdminController extends Controller
     {
         $this->authorizeAdmin();
 
-        $user->load('casos');
+        $user->load([
+            'casos',
+            'detective.casos.user:id,nombre,email' 
+        ]);
 
         return Inertia::render('Auth/DetalleUsuario', [
             'users' => $user,
@@ -82,7 +86,7 @@ class AdminController extends Controller
     public function eliminarCaso($id)
     {
         $this->authorizeAdmin();
-        
+
         $caso = Caso::findOrFail($id);
         $user = User::findOrFail($caso->user_id);
 

@@ -3,11 +3,12 @@ import Logo from '@/Components/ApplicationLogo';
 import '../../../css/auth-css/crearCaso.css';
 
 export default function CrearCaso() {
-    const { flash } = usePage().props;
+    const { flash,detectives = [] } = usePage().props;
     const { data, setData, post, processing, errors, reset } = useForm({
         titulo: '',
         descripcion: '',
         estado: 'Pendiente',
+        detective_id: '',
     });
 
     const submit = (e) => {
@@ -56,6 +57,28 @@ export default function CrearCaso() {
                             onChange={(e) => setData('descripcion', e.target.value)}
                         />
                         {errors.descripcion && <span className="error-message">{errors.descripcion}</span>}
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="detective_id" className="form-label">
+                            Asignar Detective
+                        </label>
+                        <select
+                            id="detective_id"
+                            className="form-input"
+                            value={data.detective_id}
+                            onChange={(e) => setData('detective_id', e.target.value)}
+                        >
+                            <option value="">Sin asignar </option>
+                            {detectives.map((d) => (
+                                <option key={d.id} value={d.id}>
+                                    {d.nombre}
+                                </option>
+                            ))}
+                        </select>
+                        {errors.detective_id && (
+                            <span className="error-message">{errors.detective_id}</span>
+                        )}
                     </div>
 
 

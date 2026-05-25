@@ -6,31 +6,31 @@ import BotonPrimario from '@/Components/PrimaryButton';
 
 export default function Layout() {
 
-    const { auth } = usePage().props;         
-    const user = auth?.user;  
+    const { auth } = usePage().props;
+    const user = auth?.user;
 
-    const [botonesVisibles, setBotonesVisibles] = useState([false, false, false,false]);
+    const [botonesVisibles, setBotonesVisibles] = useState([false, false, false, false]);
 
-    
+
 
     useEffect(() => {
         // Primer botón aparece a los 200ms
         setTimeout(() => {
-            setBotonesVisibles([true, false, false,false]);
+            setBotonesVisibles([true, false, false, false]);
         }, 200);
 
         // Segundo botón aparece a los 400ms
         setTimeout(() => {
-            setBotonesVisibles([true, true, false,false]);
+            setBotonesVisibles([true, true, false, false]);
         }, 400);
 
         // Tercer botón aparece a los 600ms
         setTimeout(() => {
-            setBotonesVisibles([true, true, true,false]);
+            setBotonesVisibles([true, true, true, false]);
         }, 600);
 
         setTimeout(() => {
-            setBotonesVisibles([true, true, true,true]);
+            setBotonesVisibles([true, true, true, true]);
         }, 800);
     }, []);
 
@@ -39,7 +39,7 @@ export default function Layout() {
             <div className="cabecero">
                 <a href='/' className="imagen" id='logo'>
                     <ApplicationLogo></ApplicationLogo>
-                </a>    
+                </a>
 
                 <div className="botones">
                     <div className={`boton-animado ${botonesVisibles[0] ? 'visible' : ''}`}>
@@ -50,16 +50,18 @@ export default function Layout() {
                     </div>
                     <div className={`boton-animado ${botonesVisibles[2] ? 'visible' : ''}`}>
                         <BotonPrimario nombre="Preguntas" href="/preguntas"></BotonPrimario>
-                    </div> 
-                    
+                    </div>
+
                 </div>
                 <div className="sesiones">
                     <div className={`boton-animado ${botonesVisibles[3] ? 'visible' : ''}`}>
                         {user ? (
                             user.rol === "ADMIN" ? (
                                 <BotonPrimario nombre="Dashboard Admin" href={route('admin.dashboard')} />
+                            ) : user.rol === "Detective" ? (
+                                <BotonPrimario nombre="Dashboard Detective" href={route('detective.dashboard')} />
                             ) : (
-                                <BotonPrimario nombre="Dashboard" href={route('dashboard')} /> 
+                                <BotonPrimario nombre="Dashboard" href={route('dashboard')} />
                             )
                         ) : (
                             <BotonPrimario nombre="Inicio Sesión" href={route('login')} />

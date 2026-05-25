@@ -37,8 +37,8 @@ class GoogleController extends Controller
             }
 
             // Redirige a la ruta principal de tu app
-            if (Auth::user()->rol === 'ADMIN') {
-                return redirect()->intended(route('admin.dashboard', absolute: false));
+            if (Auth::user()->rol === 'Detective') {
+                return redirect()->intended(route('detective.dashboard', absolute: false));
             } else {
                 return redirect()->intended(route('dashboard', absolute: false));
             }

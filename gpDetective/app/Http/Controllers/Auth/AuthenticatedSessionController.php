@@ -35,8 +35,10 @@ class AuthenticatedSessionController extends Controller
 
         if (Auth::user()->rol === 'ADMIN') {
             return redirect()->intended(route('admin.dashboard', absolute: false));
-        }else {
-        return redirect()->intended(route('dashboard', absolute: false));
+        } else if (Auth::user()->rol === 'Detective') {
+            return redirect()->intended(route('detective.dashboard', absolute: false));
+        } else {
+            return redirect()->intended(route('dashboard', absolute: false));
         }
     }
 

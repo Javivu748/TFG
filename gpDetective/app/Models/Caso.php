@@ -15,10 +15,16 @@ class Caso extends Model
         'descripcion',
         'estado',
         'user_id',
+        'detective_id',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function detective()
+    {
+        return $this->belongsTo(Detective::class);
     }
 }
