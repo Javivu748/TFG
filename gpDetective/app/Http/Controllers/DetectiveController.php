@@ -29,8 +29,16 @@ class DetectiveController extends Controller
             ->paginate(10)
             ->withQueryString();
 
+        $cMap = $detective->casos()
+            ->whereNotNull('lat')
+            ->whereNotNull('lng')
+            ->with('user:id,nombre')
+            ->select('id', 'titulo', 'estado', 'lat', 'lng', 'user_id')
+            ->get();
+
         return Inertia::render('Detective/Dashboard', [
             'casos'       => $casos,
+            'casosMapa'  => $cMap,
             'totalCasos'  => $detective->casos()->count(),
             'detective'   => $detective->load('user:id,nombre,email'),
             'flash'       => ['alerta' => session('alerta')],

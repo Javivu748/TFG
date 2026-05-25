@@ -64,6 +64,8 @@ class CasoController extends Controller
             'descripcion'   => 'nullable|string|max:1000',
             'estado'        => 'nullable|string|max:100',
             'detective_id'  => 'nullable|exists:detectives,id',
+            'lat'           => 'nullable|numeric|between:-90,90',
+            'lng'           => 'nullable|numeric|between:-180,180',
         ]);
 
         $user = Auth::user();
@@ -75,6 +77,8 @@ class CasoController extends Controller
             'descripcion'  => $validated['descripcion'] ?? '',
             'estado'       => $validated['estado'] ?? 'Pendiente',
             'detective_id' => $validated['detective_id'] ?? null,
+            'lat'          => $validated['lat'] ?? null,             
+            'lng'          => $validated['lng'] ?? null,             
         ]);
 
         if ($caso->detective_id) {
@@ -82,7 +86,7 @@ class CasoController extends Controller
 
             Mail::to($detective->user->email)
                 ->send(new NuevoCasoMail($user, $caso));
-        } 
+        }
         return redirect()->route('dashboard')->with('alerta', [
             'tipo'    => 'Exito',
             'mensaje' => 'Caso creado correctamente.',

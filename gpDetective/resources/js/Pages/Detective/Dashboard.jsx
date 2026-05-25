@@ -1,16 +1,24 @@
-// resources/js/Pages/Detective/Dashboard.jsx
-
 import { usePage, router } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
+import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api';
 import Layout from '../../Layouts/dashLayout.jsx';
+import ApplicationLogo from '@/Components/ApplicationLogo';
 import BotonPrimario from '@/Components/PrimaryButton.jsx';
 import Alerta from '@/Components/alerta';
 import '../../../css/detective/dash.css';
 
+const MAP_STYLE = { width: '100%', height: '500px', borderRadius: '12px' };
+const DEFAULT_CENTER = { lat: 36.5271, lng: -6.2886 };
+
 export default function DashboardDetective() {
-    const { casos = { data: [] }, totalCasos, detective, flash } = usePage().props;
+    const { casos = { data: [] }, casosMapa = [], totalCasos, detective, flash } = usePage().props;
     const [searchTerm, setSearchTerm] = useState('');
     const [alerta, setAlerta] = useState(null);
+    const [selectedCaso, setSelectedCaso] = useState(null); // para el popup
+
+    const { isLoaded } = useJsApiLoader({
+        googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
+    });
 
     useEffect(() => {
         if (flash?.alerta) setAlerta(flash.alerta);
@@ -30,12 +38,11 @@ export default function DashboardDetective() {
         router.get('/detective/dashboard');
     };
 
-    // Badge de estado visual
     const badgeEstado = (estado) => {
         const estilos = {
-            abierto:    { background: '#22c55e22', color: '#22c55e' },
-            cerrado:    { background: '#ef444422', color: '#ef4444' },
-            pendiente:  { background: '#f59e0b22', color: '#f59e0b' },
+            abierto: { background: '#22c55e22', color: '#22c55e' },
+            cerrado: { background: '#ef444422', color: '#ef4444' },
+            pendiente: { background: '#f59e0b22', color: '#f59e0b' },
         };
         return (
             <span style={{
@@ -60,14 +67,70 @@ export default function DashboardDetective() {
                 {/* Tarjeta de info del detective */}
                 <section className="dashboard-casos" style={{ marginBottom: '1.5rem' }}>
                     <div className="header-casos">
-                        <h2>
-                            Bienvenido, {detective?.user?.nombre}
-                        </h2>
+                        <h2>Bienvenido, {detective?.user?.nombre}</h2>
                         <p>Especialidad: {detective?.especialidad ?? 'Sin especificar'}</p>
                     </div>
                 </section>
 
-                {/* Tabla de casos */}
+                {casosMapa.length > 0 && (
+                    <section className="dashboard-casos" style={{ marginBottom: '1.5rem' }}>
+                        <div className="header-casos">
+                            <h2>Mapa de casos</h2>
+                            <p>{casosMapa.length} caso{casosMapa.length !== 1 ? 's' : ''} geolocalizados</p>
+                        </div>
+
+                        {isLoaded ? (
+                            <GoogleMap
+                                mapContainerStyle={MAP_STYLE}
+                                center={
+                                    casosMapa.length > 0
+                                        ? { lat: parseFloat(casosMapa[0].lat), lng: parseFloat(casosMapa[0].lng) }
+                                        : DEFAULT_CENTER
+                                }
+                                zoom={12}
+                            >
+                                {casosMapa.map((caso) => (
+                                    <Marker
+                                        key={caso.id}
+                                        position={{ lat: parseFloat(caso.lat), lng: parseFloat(caso.lng) }}
+                                        onClick={() => setSelectedCaso(caso)}
+                                        icon={{
+                                            url: '/images/GINPERFINAL.jpg', // ruta desde /public
+                                            scaledSize: new window.google.maps.Size(40, 40), // tamaño en px
+                                            anchor: new window.google.maps.Point(20, 40),    // punto de anclaje
+                                        }}
+                                    />
+                                ))}
+
+                                {selectedCaso && (
+                                    <InfoWindow
+                                        position={{ lat: parseFloat(selectedCaso.lat), lng: parseFloat(selectedCaso.lng) }}
+                                        onCloseClick={() => setSelectedCaso(null)}
+                                    >
+                                        <div className="map-info-card">
+                                            <div className="logoCartaMapa">
+                                                <ApplicationLogo />
+                                            </div>
+                                            <p className="map-info-title"><strong>Titulo:</strong> {selectedCaso.titulo}</p>
+                                            <p className="map-info-state"><strong>Estado:</strong> {selectedCaso.estado}</p>
+                                            <p className="map-info-state"><strong>Solicitante:</strong> {selectedCaso.user?.nombre ?? selectedCaso.user_id}</p>
+                                            <a
+                                                href={`/detective/casos/${selectedCaso.id}`}
+                                                className="boton-primario"
+                                            >
+                                                Ver caso <i className="fa-solid fa-arrow-right"></i>
+                                            </a>
+                                        </div>
+                                    </InfoWindow>
+                                )}
+                            </GoogleMap>
+                        ) : (
+                            <div style={{ height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                Cargando mapa...
+                            </div>
+                        )}
+                    </section>
+                )}
                 <section className="dashboard-casos admin-panel">
                     <div className="header-casos">
                         <h2>Mis Casos Asignados</h2>

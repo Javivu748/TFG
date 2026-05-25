@@ -16,6 +16,8 @@ class Caso extends Model
         'estado',
         'user_id',
         'detective_id',
+        'lat',      
+        'lng',      
     ];
 
     public function user()

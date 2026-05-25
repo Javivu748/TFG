@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('titulo');
             $table->text('descripcion');
             $table->string('estado')->default('pendiente');
+            $table->decimal('lat', 10, 7);
+            $table->decimal('lng', 10, 7);
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
