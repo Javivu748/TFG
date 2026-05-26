@@ -36,6 +36,9 @@ Route::middleware(['auth', 'es.detective'])->group(function () {
 
     Route::get('/detective/casos/{id}', [DetectiveController::class, 'show'])
          ->name('detective.caso');
+
+    Route::get('/detective/evidencia/{id}/descargar', [DetectiveController::class, 'descargarEvidencia'])
+         ->name('detective.evidencia.descargar');
 });
 
 Route::get('/dashboard', [CasoController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');

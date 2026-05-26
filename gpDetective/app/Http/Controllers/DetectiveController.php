@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Evidencia;
 
 class DetectiveController extends Controller
 {
@@ -57,10 +59,38 @@ class DetectiveController extends Controller
         // Solo puede ver sus propios casos
         $caso = $detective->casos()
             ->with('user:id,nombre,email,telefono')
+            ->with('evidencias')
             ->findOrFail($id);
 
-        return Inertia::render('Detective/DetalleCaso', [
+        return Inertia::render('Detective/Detalle', [
             'caso' => $caso,
         ]);
+    }
+
+    // Descargar evidencia
+    public function descargarEvidencia($id)
+    {
+        $detective = auth()->user()->detective;
+
+        if (!$detective) {
+            abort(403, 'No autorizado');
+        }
+
+        $evidencia = Evidencia::findOrFail($id);
+
+        if ($evidencia->caso->detective_id !== $detective->id) {
+            abort(403, 'No autorizado');
+        }
+
+        // Obtener la ruta absoluta del archivo
+        $rutaArchivo = Storage::disk('local')->path($evidencia->archivo);
+
+        // Verificar que el archivo existe
+        if (!file_exists($rutaArchivo)) {
+            abort(404, 'Archivo no encontrado');
+        }
+
+        // Descargar el archivo con su nombre original
+        return response()->download($rutaArchivo, basename($evidencia->archivo));
     }
 }
