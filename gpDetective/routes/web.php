@@ -39,11 +39,14 @@ Route::middleware(['auth', 'es.detective'])->group(function () {
 });
 
 Route::get('/dashboard', [CasoController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/admin/dashboard', [AdminController::class, 'index'])->middleware(['auth', 'verified'])->name('admin.dashboard');
-Route::get('/admin/usuarios/{user}', [AdminController::class, 'detalleUsuario'])->middleware(['auth', 'verified'])->name('admin.usuario.detalle');
-Route::delete('/admin/usuarios/{user}', [AdminController::class, 'eliminarUsuario'])->middleware(['auth', 'verified'])->name('admin.usuario.eliminar');
-Route::post('/admin/casos/{id}/alternar-estado', [AdminController::class, 'alternarEstado'])->middleware(['auth', 'verified'])->name('admin.caso.alternar-estado');
-Route::delete('/admin/casos/{id}', [AdminController::class, 'eliminarCaso'])->middleware(['auth', 'verified'])->name('admin.caso.eliminar');
+
+Route::middleware(['auth', 'es.admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/usuarios/{user}', [AdminController::class, 'detalleUsuario'])->name('admin.usuario.detalle');
+    Route::delete('/admin/usuarios/{user}', [AdminController::class, 'eliminarUsuario'])->name('admin.usuario.eliminar');
+    Route::post('/admin/casos/{id}/alternar-estado', [AdminController::class, 'alternarEstado'])->name('admin.caso.alternar-estado');
+    Route::delete('/admin/casos/{id}', [AdminController::class, 'eliminarCaso'])->name('admin.caso.eliminar');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [PerfilController::class, 'edit'])->name('profile.edit');

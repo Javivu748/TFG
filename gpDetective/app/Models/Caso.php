@@ -16,8 +16,8 @@ class Caso extends Model
         'estado',
         'user_id',
         'detective_id',
-        'lat',      
-        'lng',      
+        'lat',
+        'lng',
     ];
 
     public function user()
@@ -28,5 +28,10 @@ class Caso extends Model
     public function detective()
     {
         return $this->belongsTo(Detective::class);
+    }
+
+    public function evidencias()
+    {
+        return $this->hasMany(Evidencia::class);
     }
 }

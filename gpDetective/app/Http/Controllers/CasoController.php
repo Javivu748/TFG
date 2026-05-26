@@ -66,20 +66,31 @@ class CasoController extends Controller
             'detective_id'  => 'nullable|exists:detectives,id',
             'lat'           => 'nullable|numeric|between:-90,90',
             'lng'           => 'nullable|numeric|between:-180,180',
+            // --- Evidencia (opcional al crear el caso) ---
+            'evidencia_titulo'  => 'nullable|string|max:300',
+            'evidencia_archivo' => 'nullable|file|mimes:jpg,jpeg,png,pdf,mp4|max:20480',
         ]);
 
         $user = Auth::user();
-
-
 
         $caso = Auth::user()->casos()->create([
             'titulo'       => $validated['titulo'],
             'descripcion'  => $validated['descripcion'] ?? '',
             'estado'       => $validated['estado'] ?? 'Pendiente',
             'detective_id' => $validated['detective_id'] ?? null,
-            'lat'          => $validated['lat'] ?? null,             
-            'lng'          => $validated['lng'] ?? null,             
+            'lat'          => $validated['lat'] ?? null,
+            'lng'          => $validated['lng'] ?? null,
         ]);
+
+        // Si viene archivo, guardar la evidencia ligada al caso
+        if ($request->hasFile('evidencia_archivo')) {
+            $ruta = $request->file('evidencia_archivo')->store('evidencias', 'public');
+
+            $caso->evidencias()->create([
+                'titulo'  => $validated['evidencia_titulo'],
+                'archivo' => $ruta,
+            ]);
+        }
 
         if ($caso->detective_id) {
             $detective = Detective::with('user')->find($caso->detective_id);
@@ -87,6 +98,7 @@ class CasoController extends Controller
             Mail::to($detective->user->email)
                 ->send(new NuevoCasoMail($user, $caso));
         }
+
         return redirect()->route('dashboard')->with('alerta', [
             'tipo'    => 'Exito',
             'mensaje' => 'Caso creado correctamente.',

@@ -1,12 +1,12 @@
 import { usePage, router } from '@inertiajs/react';
-import { useState ,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Layout from '../../Layouts/dashLayout.jsx';
 import BotonPrimario from '@/Components/PrimaryButton.jsx';
 import '../../../css/auth-css/dashboard.css';
 import Alerta from '@/Components/alerta';
 
 export default function DashboardAdm() {
-    const { totalUsers, users = { data: [] } ,flash} = usePage().props;
+    const { totalUsers, users = { data: [] }, flash , adminAuth } = usePage().props;
     const [searchTerm, setSearchTerm] = useState('');
 
     const [alerta, setAlerta] = useState(null);
@@ -21,9 +21,9 @@ export default function DashboardAdm() {
             if (flash?.alerta) {
                 setAlerta(flash.alerta);
             }
-            
+
         };
-        leerAlerta(); 
+        leerAlerta();
         document.addEventListener('inertia:finish', leerAlerta);
 
         return () => {
@@ -48,14 +48,15 @@ export default function DashboardAdm() {
     return (
         <>
             <Layout />
-            
+
             <main className="dashboard-container">
                 <h1>Panel Administrador</h1>
 
                 <section className="dashboard-casos admin-panel">
                     <div className="header-casos">
-                        <h2>Administrador Usuarios</h2>
-                        <p>Usuarios:{totalUsers}</p>
+                        <h2>Bienvenido, {adminAuth?.nombre}</h2>
+                        <p>Cargo: <strong>{adminAuth?.administrador?.cargo ?? 'Sin cargo'}</strong></p>
+                        <p>Usuarios: {totalUsers}</p>
                     </div>
 
                     <form onSubmit={buscarUser} className="search-form">

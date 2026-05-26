@@ -17,7 +17,7 @@ class AdminController extends Controller
 
 
 
-        $query = User::with('casos');
+        $query = User::with(['casos']);
 
 
 
@@ -34,6 +34,7 @@ class AdminController extends Controller
         return Inertia::render('Auth/DashboardAdm', [
             'users' => $users,
             'totalUsers' => $totalUsers,
+            'adminAuth'  => auth()->user()->load('administrador'),
         ]);
     }
     public function alternarEstado($id)

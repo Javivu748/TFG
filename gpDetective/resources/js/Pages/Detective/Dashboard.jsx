@@ -84,10 +84,10 @@ export default function DashboardDetective() {
                                 mapContainerStyle={MAP_STYLE}
                                 center={
                                     casosMapa.length > 0
-                                        ? { lat: parseFloat(casosMapa[0].lat), lng: parseFloat(casosMapa[0].lng) }
+                                        ? { lat: 36.523389, lng: -5.839438 } //Por defecto el centramos el mapa para que se vea cadiz
                                         : DEFAULT_CENTER
                                 }
-                                zoom={12}
+                                zoom={9}
                             >
                                 {casosMapa.map((caso) => (
                                     <Marker
@@ -95,9 +95,9 @@ export default function DashboardDetective() {
                                         position={{ lat: parseFloat(caso.lat), lng: parseFloat(caso.lng) }}
                                         onClick={() => setSelectedCaso(caso)}
                                         icon={{
-                                            url: '/images/GINPERFINAL.jpg', // ruta desde /public
-                                            scaledSize: new window.google.maps.Size(40, 40), // tamaño en px
-                                            anchor: new window.google.maps.Point(20, 40),    // punto de anclaje
+                                            url: '/images/GINPERFINAL.jpg', 
+                                            scaledSize: new window.google.maps.Size(40, 40), 
+                                            anchor: new window.google.maps.Point(20, 40),    
                                         }}
                                     />
                                 ))}

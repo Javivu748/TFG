@@ -5,7 +5,7 @@ import Logo from '@/Components/ApplicationLogo';
 import '../../../css/auth-css/crearCaso.css';
 
 const MAP_STYLE = { width: '100%', height: '300px', borderRadius: '8px' };
-const DEFAULT_CENTER = { lat: 36.5271, lng: -6.2886 }; 
+const DEFAULT_CENTER = { lat: 36.5271, lng: -6.2886 };
 
 export default function CrearCaso() {
     const { flash, detectives = [] } = usePage().props;
@@ -14,8 +14,11 @@ export default function CrearCaso() {
         descripcion: '',
         estado: 'Pendiente',
         detective_id: '',
-        lat: null,  
-        lng: null,  
+        lat: null,
+        lng: null,
+        // --- Evidencia ---
+        evidencia_titulo: '',
+        evidencia_archivo: null,
     });
 
     const { isLoaded } = useJsApiLoader({
@@ -33,7 +36,9 @@ export default function CrearCaso() {
     const submit = (e) => {
         e.preventDefault();
         post(route('crear.caso.store'), {
-            onSuccess: () => reset('titulo', 'descripcion'),
+            // Necesario para que Inertia envíe el archivo correctamente
+            forceFormData: true,
+            onSuccess: () => reset(),
         });
     };
 
@@ -90,7 +95,6 @@ export default function CrearCaso() {
                         {errors.detective_id && <span className="error-message">{errors.detective_id}</span>}
                     </div>
 
-                    
                     <div className="form-group">
                         <label className="form-label">
                             Ubicación del caso
@@ -116,10 +120,9 @@ export default function CrearCaso() {
                             </div>
                         )}
 
-                        {/* Coordenadas seleccionadas */}
                         {data.lat && (
                             <p style={{ fontSize: '0.8rem', opacity: 0.6, marginTop: '6px' }}>
-                                 {data.lat.toFixed(5)}, {data.lng.toFixed(5)}
+                                {data.lat.toFixed(5)}, {data.lng.toFixed(5)}
                                 <button
                                     type="button"
                                     onClick={() => setData(d => ({ ...d, lat: null, lng: null }))}
@@ -129,6 +132,37 @@ export default function CrearCaso() {
                                 </button>
                             </p>
                         )}
+                    </div>
+
+                    <hr style={{ opacity: 1, margin: '8px 0' }} />
+                    <p className="login-title">
+                        Evidencia (opcional)
+                    </p>
+
+                    <div className="form-group">
+                        <label htmlFor="evidencia_titulo" className="form-label">Descripción de la evidencia</label>
+                        <textarea
+                            id="evidencia_titulo"
+                            className="form-input"
+                            rows="5"
+                            placeholder="Descripción evidencia"
+                            value={data.evidencia_titulo}
+                            onChange={(e) => setData('evidencia_titulo', e.target.value)}
+                        />
+                        {errors.evidencia_titulo && <span className="error-message">{errors.evidencia_titulo}</span>}
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="evidencia_archivo" className="form-label">Archivo de evidencia</label>
+                        <input
+                            type="file"
+                            id="evidencia_archivo"
+                            className="form-input"
+                            accept=".jpg,.jpeg,.png,.pdf,.mp4"
+                            // Importante: así es como se pasa un archivo con useForm de Inertia
+                            onChange={(e) => setData('evidencia_archivo', e.target.files[0])}
+                        />
+                        {errors.evidencia_archivo && <span className="error-message">{errors.evidencia_archivo}</span>}
                     </div>
 
                     <div className="editBoton">
