@@ -39,6 +39,8 @@ Route::middleware(['auth', 'es.detective'])->group(function () {
 
     Route::get('/detective/evidencia/{id}/descargar', [DetectiveController::class, 'descargarEvidencia'])
          ->name('detective.evidencia.descargar');
+    Route::delete('/detective/casos/{id}', [DetectiveController::class, 'cerrarCaso'])->name('detective.caso.eliminar');
+    
 });
 
 Route::get('/dashboard', [CasoController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
@@ -58,6 +60,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/completar-perfil', [CompletarPerfil::class, 'update']);
     Route::get('/crear-caso', [CasoController::class, 'create'])->name('crear.caso');
     Route::post('/crear-caso', [CasoController::class, 'store'])->name('crear.caso.store');
+    Route::get('/casos/{caso}/evidencias/crear', [CasoController::class, 'createEvidencia'])->name('caso.evidencia.create');
+    Route::post('/casos/{caso}/evidencias', [CasoController::class, 'storeEvidencia'])->name('caso.evidencia.store');
 });
 
 Route::get('/auth/google',          [GoogleController::class, 'redirect']);

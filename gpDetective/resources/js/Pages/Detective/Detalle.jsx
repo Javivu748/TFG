@@ -3,11 +3,13 @@ import { useState } from 'react';
 import Layout from '../../Layouts/dashLayout.jsx';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import '../../../css/detective/detalle.css';
+import AlertConfirm from '@/Components/AlertConfirm.jsx';
 
 const MAP_STYLE = { width: '100%', height: '220px', borderRadius: '6px' };
 
 export default function DetalleCaso() {
     const { caso } = usePage().props;
+    const [mostrarAlerta, setMostrarAlerta] = useState(false);
     const [expandedEvidencia, setExpandedEvidencia] = useState(null);
 
     const { isLoaded } = useJsApiLoader({
@@ -27,8 +29,8 @@ export default function DetalleCaso() {
 
     const badgeEstado = (estado) => {
         const estilos = {
-            abierto:   { background: '#f0fdf4', color: '#166534' },
-            cerrado:   { background: '#fef2f2', color: '#991b1b' },
+            Pendiente: { background: '#f0fdf4', color: '#166534' },
+            Proceso: { background: '#fef2f2', color: '#991b1b' },
             pendiente: { background: '#fffbeb', color: '#92400e' },
         };
         return (
@@ -56,6 +58,13 @@ export default function DetalleCaso() {
         <>
             <Layout />
             <main className="detalle-container">
+                {mostrarAlerta && (
+                    <AlertConfirm
+                        message={`¿Estás seguro de que deseas cerrar este caso?`}
+                        onConfirm={() => router.delete(`/detective/casos/${caso.id}`)}
+                        onCancel={() => setMostrarAlerta(false)}
+                    />
+                )}
 
                 {/* Header */}
                 <div className="detalle-page-header">
@@ -68,13 +77,18 @@ export default function DetalleCaso() {
                             </span>
                         </div>
                     </div>
-                    <button
-                        onClick={() => router.get('/detective/dashboard')}
-                        className="boton-volver"
-                        title="Volver al dashboard"
-                    >
-                        <i className="fa-solid fa-arrow-left"></i> Volver
-                    </button>
+                    <div>
+                        <button
+                            onClick={() => router.get('/detective/dashboard')}
+                            className="boton-volver"
+                            title="Volver al dashboard"
+                        >
+                            <i className="fa-solid fa-arrow-left"></i> Volver
+                        </button>
+                        <button onClick={() => setMostrarAlerta(true)} className="boton-volver">
+                            <i className="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
                 </div>
 
                 {/* Grid de dos columnas */}
@@ -211,11 +225,10 @@ export default function DetalleCaso() {
                                                 <span>{evidencia.titulo}</span>
                                             </div>
                                             <i
-                                                className={`fa-solid fa-chevron-down chevron ${
-                                                    expandedEvidencia === evidencia.id
-                                                        ? 'expanded'
-                                                        : ''
-                                                }`}
+                                                className={`fa-solid fa-chevron-down chevron ${expandedEvidencia === evidencia.id
+                                                    ? 'expanded'
+                                                    : ''
+                                                    }`}
                                             ></i>
                                         </div>
 

@@ -111,7 +111,11 @@ export default function CrearCaso() {
                                 onClick={handleMapClick}
                             >
                                 {data.lat && (
-                                    <Marker position={{ lat: data.lat, lng: data.lng }} />
+                                    <Marker position={{ lat: data.lat, lng: data.lng }} icon={{
+                                        url: '/images/GINPERFINAL.jpg',
+                                        scaledSize: new window.google.maps.Size(40, 40),
+                                        anchor: new window.google.maps.Point(20, 40),
+                                    }} />
                                 )}
                             </GoogleMap>
                         ) : (

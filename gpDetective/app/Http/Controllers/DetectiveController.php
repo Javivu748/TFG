@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\Caso;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Evidencia;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CerrarCasoMail;
 
 class DetectiveController extends Controller
 {
@@ -82,15 +86,35 @@ class DetectiveController extends Controller
             abort(403, 'No autorizado');
         }
 
-        // Obtener la ruta absoluta del archivo
-        $rutaArchivo = Storage::disk('local')->path($evidencia->archivo);
+        $rutaArchivo = $evidencia->archivo;
 
-        // Verificar que el archivo existe
-        if (!file_exists($rutaArchivo)) {
+        if (!Storage::disk('public')->exists($rutaArchivo)) {
             abort(404, 'Archivo no encontrado');
         }
 
-        // Descargar el archivo con su nombre original
-        return response()->download($rutaArchivo, basename($evidencia->archivo));
+        return Storage::disk('public')->download($rutaArchivo, basename($rutaArchivo));
+    }
+
+    public function cerrarCaso($id)
+    {
+
+        $caso = Caso::with('evidencias')->findOrFail($id);
+        $user = User::findOrFail($caso->user_id);
+
+        foreach ($caso->evidencias as $evidencia) {
+            if ($evidencia->archivo) {
+                Storage::disk('public')->delete($evidencia->archivo);
+            }
+        }
+
+        Mail::to($user->email)
+            ->send(new CerrarCasoMail($user, $caso));
+
+        $caso->delete();
+
+        return redirect()->route('detective.dashboard')->with('alerta', [
+            'tipo' => 'Exito',
+            'mensaje' => 'Caso Cerrado Coorrectamente',
+        ]);
     }
 }

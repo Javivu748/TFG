@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Mail\NuevoCasoMail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class CasoController extends Controller
 {
@@ -19,8 +20,26 @@ class CasoController extends Controller
      */
     public function index()
     {
+        $casos = Auth::user()->casos()
+            ->with(['evidencias' => function ($query) {
+                $query->orderBy('created_at', 'desc');
+            }])
+            ->orderBy('created_at', 'desc')
+            ->paginate(5)
+            ->through(function ($caso) {
+                $caso->evidencias = $caso->evidencias->map(function ($evidencia) {
+                    $evidencia->archivo_url = $evidencia->archivo
+                        ? Storage::url($evidencia->archivo)
+                        : null;
+
+                    return $evidencia;
+                });
+
+                return $caso;
+            });
+
         return Inertia::render('Dashboard', [
-            'casos' => Auth::user()->casos()->orderBy('created_at', 'desc')->paginate(10)
+            'casos' => $casos,
         ]);
     }
 
@@ -102,6 +121,56 @@ class CasoController extends Controller
         return redirect()->route('dashboard')->with('alerta', [
             'tipo'    => 'Exito',
             'mensaje' => 'Caso creado correctamente.',
+        ]);
+    }
+
+    public function createEvidencia(Caso $caso)
+    {
+        $caso = Auth::user()->casos()->findOrFail($caso->id);
+
+        $evidenciasCount = $caso->evidencias()->count();
+
+        if ($evidenciasCount >= 3) {
+            return redirect()->route('dashboard')->with('alerta', [
+                'tipo'    => 'Error',
+                'mensaje' => 'Este caso ya alcanzó el máximo de 3 evidencias.',
+            ]);
+        }
+
+        return Inertia::render('Auth/CrearEvidencia', [
+            'caso' => $caso,
+            'evidencias_count' => $evidenciasCount,
+        ]);
+    }
+
+    public function storeEvidencia(Request $request, Caso $caso)
+    {
+        $caso = Auth::user()->casos()->findOrFail($caso->id);
+
+        $evidenciasCount = $caso->evidencias()->count();
+
+        if ($evidenciasCount >= 3) {
+            return redirect()->route('dashboard')->with('alerta', [
+                'tipo'    => 'Error',
+                'mensaje' => 'Este caso ya alcanzó el máximo de 3 evidencias.',
+            ]);
+        }
+
+        $validated = $request->validate([
+            'titulo'  => 'required|string|max:255',
+            'archivo' => 'required|file|mimes:jpg,jpeg,png,pdf,mp4|max:20480',
+        ]);
+
+        $ruta = $request->file('archivo')->store('evidencias', 'public');
+
+        $caso->evidencias()->create([
+            'titulo'  => $validated['titulo'],
+            'archivo' => $ruta,
+        ]);
+
+        return redirect()->route('dashboard')->with('alerta', [
+            'tipo'    => 'Exito',
+            'mensaje' => 'Evidencia añadida correctamente.',
         ]);
     }
 

@@ -84,7 +84,7 @@
 /* ── Grid ─────────────────────────────────────── */
 .detalle-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 14px;
 }
 
@@ -303,7 +303,6 @@
 
 .evidencia-titulo i {
     font-size: 1rem;
-    color: #2563eb;
 }
 
 .chevron {
