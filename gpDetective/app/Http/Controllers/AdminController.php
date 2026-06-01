@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Caso;
+use App\Models\Detective;
+use App\Models\Administrador;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Mail\CerrarCasoMail;
@@ -81,6 +83,40 @@ class AdminController extends Controller
         return redirect()->route('admin.dashboard')->with('alerta', [
             'tipo' => 'Exito',
             'mensaje' => 'Usuario eliminado correctamente',
+        ]);
+    }
+
+    public function cambiarRolDetec($id){
+        $this->authorizeAdmin();
+
+        $user = User::findOrFail($id);
+
+        if ($user->rol === 'Detective') {
+            return redirect()->back()->with('alerta', [
+                'tipo' => 'Info',
+                'mensaje' => 'El usuario ya tiene el rol de detective.',
+            ]);
+        }
+
+        // Si tiene un administrador asociado, eliminarlo
+        if ($user->administrador) {
+            $user->administrador()->delete();
+        }
+
+        // Crear detective asociado
+        Detective::create([
+            'user_id' => $user->id,
+            'especialidad' => 'General',
+            'estado' => 'Activo',
+        ]);
+
+        // Cambiar rol del usuario
+        $user->rol = 'Detective';
+        $user->save();
+
+        return redirect()->back()->with('alerta', [
+            'tipo' => 'Exito',
+            'mensaje' => 'Usuario convertido a detective correctamente.',
         ]);
     }
 

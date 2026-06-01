@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Logo from '../Components/ApplicationLogo';
 import '../../css/alerta.css'
 
-export default function Alerta({ message, tipo ,recargar }) {
+export default function Alerta({ message, tipo, recargar }) {
     const [visible, setVisible] = useState(true);
     const [saliendo, setSaliendo] = useState(false);
 
@@ -24,6 +24,9 @@ export default function Alerta({ message, tipo ,recargar }) {
             break;
         case 'Exito':
             colorAlerta = 'bg-green-600 text-white';
+            break;
+        case 'Info':
+            colorAlerta = 'bg-black text-white';
             break;
         case 'Bienvenido':
             colorAlerta = 'bg-black text-white';

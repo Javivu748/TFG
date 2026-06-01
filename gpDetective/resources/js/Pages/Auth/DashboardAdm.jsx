@@ -45,6 +45,8 @@ export default function DashboardAdm() {
         router.get('/admin/dashboard');
     };
 
+    
+
     return (
         <>
             <Layout />

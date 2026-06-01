@@ -166,7 +166,7 @@ export default function Dashboard() {
                                                         </div>
                                                     ) : (
                                                         <div className="caso-map-empty">
-                                                            <span className="empty-map-icon">📍</span>
+                                                            <span className="empty-map-icon"></span>
                                                             <p>Este caso no tiene ubicación registrada.</p>
                                                         </div>
                                                     )}

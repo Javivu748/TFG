@@ -1,6 +1,7 @@
 import { Head, useForm, usePage } from '@inertiajs/react';
 import Logo from '@/Components/ApplicationLogo';
 import '../../../css/auth-css/crearEvidencia.css';
+import Alert from '@/Components/alerta';
 
 export default function CrearEvidencia() {
     const { caso, evidencias_count = 0, flash } = usePage().props;
@@ -62,7 +63,7 @@ export default function CrearEvidencia() {
                             onChange={(e) => setData('archivo', e.target.files[0])}
                             required
                         />
-                        {errors.archivo && <span className="error-message">{errors.archivo}</span>}
+                        {errors.archivo && <Alert message={"El archivo no puede pesar mas de 2MB"} tipo={"Error"} recargar={true}></Alert>}
                     </div>
 
                     <div className="editBoton">

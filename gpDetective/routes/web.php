@@ -51,6 +51,7 @@ Route::middleware(['auth', 'es.admin'])->group(function () {
     Route::delete('/admin/usuarios/{user}', [AdminController::class, 'eliminarUsuario'])->name('admin.usuario.eliminar');
     Route::post('/admin/casos/{id}/alternar-estado', [AdminController::class, 'alternarEstado'])->name('admin.caso.alternar-estado');
     Route::delete('/admin/casos/{id}', [AdminController::class, 'eliminarCaso'])->name('admin.caso.eliminar');
+    Route::post('/admin/usuarios/{id}/convertir-detective', [AdminController::class, 'cambiarRolDetec'])->name('admin.usuario.convertir.detective');
 });
 
 Route::middleware('auth')->group(function () {

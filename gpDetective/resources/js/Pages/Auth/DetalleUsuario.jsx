@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 export default function DetalleUsuario() {
     const { users: user, flash } = usePage().props;
     const [mostrarAlerta, setMostrarAlerta] = useState(false);
+    const [mostrarDetec, setMostrarDetec] = useState(false);
     const [alerta, setAlerta] = useState(null);
 
     useEffect(() => {
@@ -25,6 +26,7 @@ export default function DetalleUsuario() {
             </>
         );
     }
+
 
     const getInitials = (name, email) => {
         const str = name ?? email ?? '';
@@ -52,12 +54,24 @@ export default function DetalleUsuario() {
                     onCancel={() => setMostrarAlerta(false)}
                 />
             )}
+            {mostrarDetec && (
+                <AlertConfirm
+                    message={`¿Estás seguro de que ${user.nombre} sea un detective?`}
+                    onConfirm={() => router.post(`/admin/usuarios/${user.id}/convertir-detective`)}
+                    onCancel={() => setMostrarDetec(false)}
+                />
+            )}
             <main className="detalle-container">
                 <div className="detalle-header">
                     <BotonPrimario nombre={<><i className="fa-solid fa-arrow-left"></i> Volver</>} href={'../../admin/dashboard'} />
-                    <button onClick={() => setMostrarAlerta(true)} className="eliminar-button">
-                        <i className="fa-solid fa-trash"></i>
-                    </button>
+                    <div>
+                        <button onClick={() => setMostrarAlerta(true)} className="eliminar-button">
+                            <i className="fa-solid fa-trash"></i>
+                        </button>
+                        <button onClick={() => setMostrarDetec(true)} className="boton-primario" title="Convertir a detective">
+                            <i className="fa-solid fa-user-tie"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <section className="detalle-usuario">
@@ -69,7 +83,7 @@ export default function DetalleUsuario() {
                             <div className="usuario-info">
                                 <h1>{user.nombre}</h1>
                                 {/* ← Muestra la placa si es detective */}
-                                {user.rol === 'detective' && (
+                                {user.rol === 'Detective' && (
                                     <span style={{
                                         background: '#3b82f622',
                                         color: '#3b82f6',
@@ -78,7 +92,19 @@ export default function DetalleUsuario() {
                                         fontSize: '0.75rem',
                                         fontWeight: 600
                                     }}>
-                                        🔍 Detective — {user.detective?.badge_number}
+                                        Detective {user.detective?.especialidad}
+                                    </span>
+                                )}
+                                {user.rol === 'ADMIN' && (
+                                    <span style={{
+                                        background: '#3b82f622',
+                                        color: '#3b82f6',
+                                        padding: '3px 10px',
+                                        borderRadius: '999px',
+                                        fontSize: '0.75rem',
+                                        fontWeight: 600
+                                    }}>
+                                        Administrador
                                     </span>
                                 )}
                             </div>

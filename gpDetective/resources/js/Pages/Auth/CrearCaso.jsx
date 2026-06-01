@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import Logo from '@/Components/ApplicationLogo';
 import '../../../css/auth-css/crearCaso.css';
+import Alert from '@/Components/alerta';
 
 const MAP_STYLE = { width: '100%', height: '300px', borderRadius: '8px' };
 const DEFAULT_CENTER = { lat: 36.5271, lng: -6.2886 };
@@ -166,7 +167,7 @@ export default function CrearCaso() {
                             // Importante: así es como se pasa un archivo con useForm de Inertia
                             onChange={(e) => setData('evidencia_archivo', e.target.files[0])}
                         />
-                        {errors.evidencia_archivo && <span className="error-message">{errors.evidencia_archivo}</span>}
+                        {errors.evidencia_archivo && <Alert message={"El archivo no puede pesar mas de 2MB"} tipo={"Error"} recargar={true}></Alert>}
                     </div>
 
                     <div className="editBoton">
