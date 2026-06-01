@@ -9,7 +9,9 @@ import { useState, useEffect } from 'react';
 export default function DetalleUsuario() {
     const { users: user, flash } = usePage().props;
     const [mostrarAlerta, setMostrarAlerta] = useState(false);
+    const [mostrarAdmin, setMostrarAdmin] = useState(false);
     const [mostrarDetec, setMostrarDetec] = useState(false);
+    const [mostrarUser, setMostrarUser] = useState(false);
     const [alerta, setAlerta] = useState(null);
 
     useEffect(() => {
@@ -60,16 +62,35 @@ export default function DetalleUsuario() {
                     onConfirm={() => router.post(`/admin/usuarios/${user.id}/convertir-detective`)}
                     onCancel={() => setMostrarDetec(false)}
                 />
+            )}{mostrarAdmin && (
+                <AlertConfirm
+                    message={`¿Estás seguro de que ${user.nombre} sea un administrador?`}
+                    onConfirm={() => router.post(`/admin/usuarios/${user.id}/convertir-administrador`)}
+                    onCancel={() => setMostrarAdmin(false)}
+                />
+            )}
+            {mostrarUser && (
+                <AlertConfirm
+                    message={`¿Estás seguro de que ${user.nombre} sea un usuario?`}
+                    onConfirm={() => router.post(`/admin/usuarios/${user.id}/convertir-usuario`)}
+                    onCancel={() => setMostrarUser(false)}
+                />
             )}
             <main className="detalle-container">
                 <div className="detalle-header">
                     <BotonPrimario nombre={<><i className="fa-solid fa-arrow-left"></i> Volver</>} href={'../../admin/dashboard'} />
                     <div>
-                        <button onClick={() => setMostrarAlerta(true)} className="eliminar-button">
-                            <i className="fa-solid fa-trash"></i>
+                        <button onClick={() => setMostrarUser(true)} className="boton-primario" title="Convertir a usuario">
+                            <i class="fa-solid fa-user"></i>
                         </button>
                         <button onClick={() => setMostrarDetec(true)} className="boton-primario" title="Convertir a detective">
                             <i className="fa-solid fa-user-tie"></i>
+                        </button>
+                        <button onClick={() => setMostrarAdmin(true)} className="boton-primario" title="Convertir a administrador">
+                            <i class="fa-solid fa-crown"></i>
+                        </button>
+                        <button onClick={() => setMostrarAlerta(true)} className="eliminar-button">
+                            <i className="fa-solid fa-trash"></i>
                         </button>
                     </div>
                 </div>
@@ -77,9 +98,13 @@ export default function DetalleUsuario() {
                 <section className="detalle-usuario">
                     <div className="usuario-card">
                         <div className="usuario-header">
-                            <div className="usuario-avatar-grande">
-                                {getInitials(user.nombre, user.email)}
-                            </div>
+                            {user.avatar ? (
+                                <img src={`/storage/${user.avatar}`} alt="Avatar" className="usuario-avatar-grande" />
+                            ) : (
+                                <div className="usuario-avatar-grande">
+                                    {getInitials(user.nombre, user.email)}
+                                </div>
+                            )}
                             <div className="usuario-info">
                                 <h1>{user.nombre}</h1>
                                 {/* ← Muestra la placa si es detective */}

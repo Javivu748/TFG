@@ -50,6 +50,15 @@ export default function Layout() {
                     <div className={`boton-animado ${botonesVisibles[2] ? 'visible' : ''}`}>
                         <BotonSalir nombre="Cerrar Sesion" pulsar={handleLogout}></BotonSalir>
                     </div>
+                    <div className="avatarUser">
+                        {user?.avatar ? (
+                            <img src={`/storage/${user.avatar}`} alt="Avatar" className="avatar-image" />
+                        ) : (
+                            <div className="avatar-placeholder">
+                                {user?.nombre ? user.nombre.slice(0, 2).toUpperCase() : 'US'}
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </>

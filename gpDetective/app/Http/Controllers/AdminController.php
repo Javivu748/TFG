@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Mail\CerrarCasoMail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -78,11 +79,46 @@ class AdminController extends Controller
     {
         $this->authorizeAdmin();
 
+        if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
+            Storage::disk('public')->delete($user->avatar);
+        }
+
         $user->delete();
 
         return redirect()->route('admin.dashboard')->with('alerta', [
             'tipo' => 'Exito',
             'mensaje' => 'Usuario eliminado correctamente',
+        ]);
+    }
+
+    public function cambiarRolUser($id){
+        $this->authorizeAdmin();
+
+        $user = User::findOrFail($id);
+
+        if ($user->rol === 'USER') {
+            return redirect()->back()->with('alerta', [
+                'tipo' => 'Info',
+                'mensaje' => 'El usuario ya tiene el rol de usuario.',
+            ]);
+        }
+
+        // Si tiene algun otro rol anterior quitarselo
+        if ($user->administrador) {
+            $user->administrador()->delete();
+        }
+
+        if ($user->detective) {
+            $user->detective()->delete();
+        }
+
+        // Cambiar rol del usuario
+        $user->rol = 'USER';
+        $user->save();
+
+        return redirect()->back()->with('alerta', [
+            'tipo' => 'Exito',
+            'mensaje' => 'Usuario convertido a usuario correctamente.',
         ]);
     }
 
@@ -117,6 +153,40 @@ class AdminController extends Controller
         return redirect()->back()->with('alerta', [
             'tipo' => 'Exito',
             'mensaje' => 'Usuario convertido a detective correctamente.',
+        ]);
+    }
+
+    public function cambiarRolAdmin($id){
+        $this->authorizeAdmin();
+
+        $user = User::findOrFail($id);
+
+        if ($user->rol === 'ADMIN') {
+            return redirect()->back()->with('alerta', [
+                'tipo' => 'Info',
+                'mensaje' => 'El usuario ya tiene el rol de administrador.',
+            ]);
+        }
+
+        // Si tiene un detective asociado, eliminarlo
+        if ($user->detective) {
+            $user->detective()->delete();
+        }
+
+        // Crear administrador asociado
+        Administrador::create([
+            'user_id' => $user->id,
+            'cargo' => 'Administrador',
+            'estado' => 'activo',
+        ]);
+
+        // Cambiar rol del usuario
+        $user->rol = 'ADMIN';
+        $user->save();
+
+        return redirect()->back()->with('alerta', [
+            'tipo' => 'Exito',
+            'mensaje' => 'Usuario convertido a administrador correctamente.',
         ]);
     }
 

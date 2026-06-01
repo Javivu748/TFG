@@ -6,7 +6,7 @@ import '../../../css/auth-css/dashboard.css';
 import Alerta from '@/Components/alerta';
 
 export default function DashboardAdm() {
-    const { totalUsers, users = { data: [] }, flash , adminAuth } = usePage().props;
+    const { totalUsers, users = { data: [] }, flash, adminAuth } = usePage().props;
     const [searchTerm, setSearchTerm] = useState('');
 
     const [alerta, setAlerta] = useState(null);
@@ -45,7 +45,7 @@ export default function DashboardAdm() {
         router.get('/admin/dashboard');
     };
 
-    
+
 
     return (
         <>
@@ -94,9 +94,13 @@ export default function DashboardAdm() {
                                         <tr key={user.id}>
                                             <td>
                                                 <div className="user-cell">
-                                                    <div className="user-avatar">
-                                                        {getInitials(user.nombre, user.email)}
-                                                    </div>
+                                                    {user.avatar ? (
+                                                        <img src={`/storage/${user.avatar}`} alt="Avatar" className="user-avatar" />
+                                                    ) : (
+                                                        <div className="user-avatar">
+                                                            {getInitials(user.nombre, user.email)}
+                                                        </div>
+                                                    )}
                                                     <span>{user.nombre ?? user.email}</span>
                                                 </div>
                                             </td>

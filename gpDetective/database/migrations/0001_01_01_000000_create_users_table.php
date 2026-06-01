@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('nombre');
             $table->string('email')->unique();
+            $table->string('avatar');
             $table->string('telefono')->unique()->nullable();
             $table->string('rol')->default('USER');
             $table->timestamp('email_verified_at')->nullable();

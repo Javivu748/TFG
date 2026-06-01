@@ -2,6 +2,7 @@ import ApplicationLogo from '@/Components/ApplicationLogo';
 import { Head, Link, useForm } from '@inertiajs/react';
 import Alert from '@/Components/alerta';
 import '../../../css/auth-css/register.css';
+import { useState } from 'react';
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -10,12 +11,29 @@ export default function Register() {
         email: '',
         password: '',
         password_confirmation: '',
+        avatar: null,
     });
+
+    const [previewUrl, setPreviewUrl] = useState(null);
+
+    const handleAvatarChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setData('avatar', file);
+            // Create preview URL
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                setPreviewUrl(event.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
     const submit = (e) => {
         e.preventDefault();
 
         post(route('register'), {
+            forceFormData: true,
             onFinish: () => reset('password', 'password_confirmation'),
         });
     };
@@ -33,6 +51,39 @@ export default function Register() {
                 </div>
 
                 <form onSubmit={submit} className="register-form">
+
+                    <div className="form-group">
+                        <label htmlFor="avatar" className="form-label">Avatar</label>
+                        {previewUrl && (
+                            <div className="avatar-preview" style={{ marginBottom: '15px', textAlign: 'center' }}>
+                                <img 
+                                    src={previewUrl} 
+                                    alt="Avatar preview" 
+                                    style={{ 
+                                        width: '100px', 
+                                        height: '100px', 
+                                        borderRadius: '50%', 
+                                        objectFit: 'cover',
+                                        border: '2px solid #ddd'
+                                    }} 
+                                />
+                            </div>
+                        )}
+                        <input
+                            id="avatar"
+                            type="file"
+                            name="avatar"
+                            accept=".jpg,.jpeg,.png"
+                            className="form-input"
+                            onChange={handleAvatarChange}
+                        />
+                        <small style={{ color: '#666', display: 'block', marginTop: '5px' }}>
+                            Formatos permitidos: JPG, JPEG, PNG (máximo 2MB) - Opcional
+                        </small>
+                        {errors.avatar && (
+                            <Alert message={Array.isArray(errors.avatar) ? errors.avatar[0] : errors.avatar} tipo="Error"></Alert>
+                        )}
+                    </div>
 
                     <div className="form-group">
                         <label htmlFor="nombre" className="form-label">Nombre</label>
