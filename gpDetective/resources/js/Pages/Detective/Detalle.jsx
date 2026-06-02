@@ -1,20 +1,37 @@
 import { usePage, router } from '@inertiajs/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Layout from '../../Layouts/dashLayout.jsx';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import '../../../css/detective/detalle.css';
 import AlertConfirm from '@/Components/AlertConfirm.jsx';
+import Alerta from '@/Components/alerta';
 
 const MAP_STYLE = { width: '100%', height: '220px', borderRadius: '6px' };
 
 export default function DetalleCaso() {
-    const { caso } = usePage().props;
+    const { caso, flash } = usePage().props;
     const [mostrarAlerta, setMostrarAlerta] = useState(false);
     const [expandedEvidencia, setExpandedEvidencia] = useState(null);
+    const [alerta, setAlerta] = useState(null);
 
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
     });
+
+    useEffect(() => {
+        const leerAlerta = () => {
+            if (flash?.alerta) {
+                setAlerta(flash.alerta);
+            }
+        };
+
+        leerAlerta();
+        document.addEventListener('inertia:finish', leerAlerta);
+
+        return () => {
+            document.removeEventListener('inertia:finish', leerAlerta);
+        };
+    }, [flash]);
 
     if (!caso) {
         return (
@@ -84,6 +101,13 @@ export default function DetalleCaso() {
                             title="Volver al dashboard"
                         >
                             <i className="fa-solid fa-arrow-left"></i> Volver
+                        </button>
+                        <button
+                            onClick={() => router.post(`/detective/casos/${caso.id}/alternar-estado`)}
+                            className="boton-volver"
+                            title="Alternar estado"
+                        >
+                            <i className="fa-solid fa-sync"></i>
                         </button>
                         <button onClick={() => setMostrarAlerta(true)} className="boton-volver">
                             <i className="fa-solid fa-trash"></i>
@@ -269,6 +293,8 @@ export default function DetalleCaso() {
                         )}
                     </div>
                 </div>
+
+                {alerta && <Alerta tipo={alerta.tipo} message={alerta.mensaje} recargar={true} />}
             </main>
         </>
     );

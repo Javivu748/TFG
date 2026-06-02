@@ -1,6 +1,7 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import { Head, Link, useForm } from '@inertiajs/react';
 import '../../../css/auth-css/posLogin.css';
+import BotonPrimario from '@/Components/PrimaryButton';
 
 export default function CompleteProfile() {
     const { data, setData, post, processing, errors, reset } = useForm({

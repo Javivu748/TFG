@@ -70,6 +70,29 @@ class DetectiveController extends Controller
             'caso' => $caso,
         ]);
     }
+    public function alternarEstado($id)
+    {
+        $detective = auth()->user()->detective;
+
+        if (!$detective) {
+            abort(403, 'No autorizado');
+        }
+
+        // Verificar que el detective es el propietario del caso
+        $caso = $detective->casos()->findOrFail($id);
+
+        if ($caso->estado === 'Pendiente') {
+            $caso->estado = 'En Proceso';
+        } elseif ($caso->estado === 'En Proceso') {
+            $caso->estado = 'Pendiente';
+        }
+        $caso->save();
+
+        return redirect()->back()->with('alerta', [
+            'tipo' => 'Exito',
+            'mensaje' => 'Estado del caso actualizado correctamente.',
+        ]);
+    }
 
     // Descargar evidencia
     public function descargarEvidencia($id)

@@ -46,8 +46,6 @@ class AdminController extends Controller
 
         $caso = Caso::findOrFail($id);
 
-        $user = User::findOrFail($caso->detective_id);
-
         if ($caso->estado === 'Pendiente') {
             $caso->estado = 'En Proceso';
         } elseif ($caso->estado === 'En Proceso') {
@@ -58,7 +56,7 @@ class AdminController extends Controller
         return redirect()->back()->with('alerta', [
             'tipo' => 'Exito',
             'mensaje' => 'Estado del caso actualizado correctamente.',
-        ]);;
+        ]);
     }
 
     public function detalleUsuario(User $user)

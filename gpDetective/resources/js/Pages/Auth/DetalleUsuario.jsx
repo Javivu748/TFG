@@ -241,13 +241,13 @@ export default function DetalleUsuario() {
                                                         onClick={() => router.post(`/admin/casos/${caso.id}/alternar-estado`)}
                                                         className="boton-primario"
                                                     >
-                                                        <i className="fa-solid fa-exchange-alt"></i>
+                                                        <i className="fa-solid fa-sync"></i>
                                                     </button>
                                                     <button
                                                         onClick={() => router.delete(`/admin/casos/${caso.id}`)}
                                                         className="boton-primario"
                                                     >
-                                                        <i className="fa-solid fa-check-double"></i>
+                                                        <i className="fa-solid fa-trash"></i>
                                                     </button>
                                                 </td>
                                             </tr>

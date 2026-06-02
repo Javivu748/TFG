@@ -40,7 +40,8 @@ Route::middleware(['auth', 'es.detective'])->group(function () {
     Route::get('/detective/evidencia/{id}/descargar', [DetectiveController::class, 'descargarEvidencia'])
          ->name('detective.evidencia.descargar');
     Route::delete('/detective/casos/{id}', [DetectiveController::class, 'cerrarCaso'])->name('detective.caso.eliminar');
-    
+    Route::post('/detective/casos/{id}/alternar-estado', [DetectiveController::class, 'alternarEstado'])->name('detective.caso.alternar-estado');
+
 });
 
 Route::get('/dashboard', [CasoController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
