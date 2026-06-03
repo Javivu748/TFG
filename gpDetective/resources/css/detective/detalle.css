@@ -1,0 +1,414 @@
+/* ================================================
+   detalle.css — DetalleCaso
+   Estética coherente con dash.css
+   ================================================ */
+
+/* Contenedor principal */
+.detalle-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 32px 20px;
+}
+
+/* ── Header ───────────────────────────────────── */
+.detalle-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.detalle-page-header h1 {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 8px;
+}
+
+.header-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.meta-fecha {
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+/* Botón volver — mismo patrón que search/clear del dashboard */
+.boton-volver {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    color: #000;
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    overflow: hidden;
+    transition: color 0.4s ease;
+    z-index: 1;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.boton-volver::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background-color: #000;
+    transition: height 0.4s ease;
+    z-index: -1;
+}
+
+.boton-volver:hover::before {
+    height: 100%;
+}
+
+.boton-volver:hover {
+    color: #fff;
+}
+
+/* ── Grid ─────────────────────────────────────── */
+.detalle-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+}
+
+@media (max-width: 768px) {
+    .detalle-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .detalle-page-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .detalle-page-header h1 {
+        font-size: 1.35rem;
+    }
+
+    .boton-volver {
+        align-self: flex-start;
+    }
+
+    .evidencia-detalles {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .boton-descargar {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ── Cards / Secciones ────────────────────────── */
+.detalle-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 18px 20px;
+    background-color: #ffffff;
+    margin-bottom: 14px;
+}
+
+.detalle-card:last-child {
+    margin-bottom: 0;
+}
+
+.detalle-card-title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #374151;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.detalle-card-title i {
+    font-size: 1rem;
+    color: #6b7280;
+}
+
+/* ── Campos info ──────────────────────────────── */
+.info-field {
+    margin-bottom: 12px;
+}
+
+.info-field:last-child {
+    margin-bottom: 0;
+}
+
+.info-field label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.info-field p {
+    font-size: 0.95rem;
+    color: #111827;
+    margin: 0;
+    word-break: break-word;
+}
+
+.info-field a {
+    font-size: 0.95rem;
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.info-field a:hover {
+    text-decoration: underline;
+}
+
+/* Divider dentro de card */
+.info-divider {
+    border: none;
+    border-top: 1px solid #f3f4f6;
+    margin: 14px 0;
+}
+
+/* ── Avatar solicitante ───────────────────────── */
+.usuario-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.usuario-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: black;
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.usuario-nombre {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #111827;
+}
+
+.usuario-rol {
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+/* ── Ubicación pill ───────────────────────────── */
+.location-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    color: #4b5563;
+}
+
+/* ── Badges de estado ─────────────────────────── */
+.estado-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* ── Evidencias ───────────────────────────────── */
+.evidencias-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.badge-count {
+    background: #eff6ff;
+    color: #1d4ed8;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.evidencias-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.evidencia-item {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+}
+
+.evidencia-item:hover {
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+}
+
+.evidencia-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    cursor: pointer;
+    background-color: #f9fafb;
+    user-select: none;
+    transition: background 0.2s ease;
+}
+
+.evidencia-header:hover {
+    background-color: #f3f4f6;
+}
+
+.evidencia-titulo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #111827;
+}
+
+.evidencia-titulo i {
+    font-size: 1rem;
+}
+
+.chevron {
+    font-size: 0.85rem;
+    color: #6b7280;
+    transition: transform 0.25s ease;
+}
+
+.chevron.expanded {
+    transform: rotate(180deg);
+}
+
+.evidencia-detalles {
+    border-top: 1px solid #e5e7eb;
+    padding: 12px 14px;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.detalles-info p {
+    font-size: 0.85rem;
+    color: #4b5563;
+    margin: 0 0 4px 0;
+}
+
+.detalles-info p:last-child {
+    margin-bottom: 0;
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+/* Botón descargar — mismo patrón fill que boton-volver */
+.boton-descargar {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    color: #000;
+    background: none;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    overflow: hidden;
+    transition: color 0.4s ease, border-color 0.4s ease;
+    z-index: 1;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.boton-descargar::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background-color: #000;
+    transition: height 0.4s ease;
+    z-index: -1;
+}
+
+.boton-descargar:hover::before {
+    height: 100%;
+}
+
+.boton-descargar:hover {
+    color: #fff;
+    border-color: #000;
+}
+
+/* ── Mapa ubicación ───────────────────────────── */
+.mapa-cargando {
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+/* ── Sin evidencias ───────────────────────────── */
+.sin-evidencias {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 1rem;
+    text-align: center;
+    color: #9ca3af;
+    gap: 8px;
+}
+
+.sin-evidencias i {
+    font-size: 2.5rem;
+    color: #d1d5db;
+}
+
+.sin-evidencias p {
+    font-size: 0.95rem;
+    margin: 0;
+}
