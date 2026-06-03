@@ -67,10 +67,12 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: toor
       MYSQL_DATABASE: detective
+      MYSQL_USER: javivu        
+      MYSQL_PASSWORD: toor      
     volumes:
       - mysql_data:/var/lib/mysql
     ports:
-      - "3307:3306"
+      - "3307:3306"             
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-ptoor"]
       interval: 10s
